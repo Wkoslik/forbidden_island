@@ -1,0 +1,57 @@
+body{
+    background-color: rgb(96, 205, 255);
+    background-image: url('./imgs/pngaaa.com-27423.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#container{
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid red;
+}
+
+h1{
+    text-align: center;
+    padding: 32px;
+    font-size: 72px;
+    font-family: 'Fredericka the Great', sans-serif;
+}
+
+#gamecontainer{
+    margin: 4px;
+    border: 1px solid salmon;
+}
+
+
+.decks{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+canvas{
+    width: 60%;
+    border: 1px solid black;
+    display: inline;
+}
+
+#row2{
+    display: flex;
+}
+
+aside{
+    border: 1px solid blue;
+    width: 20%;
+    display: inline;
+}
+
+#playertracker, #waterlevelcontainer{
+    width: 100%;
+    border: 1px solid greenyellow;
+}

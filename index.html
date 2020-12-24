@@ -4,10 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forbidden Island</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <script src="./app.js"></script>
 </head>
 <body>
-    
+    <div id=container>
+        <h1>Forbidden Island</h1>
+        <div id="gamecontainer">
+            <div id="waterlevelcontainer">waterlevel</div>
+            <div id="row2">
+                <aside class="decks">
+                    <div id="treasuredeck">treasuredekc</div>
+                    <div id="treasurediscard">treasure discard</div>
+                    <div id="flooddeck">floor </div>
+                    <div id="flooddiscard">flood discard</div>
+                </aside>
+                <canvas id="game"></canvas>
+                <aside>
+                    <div id="actionoptions">rules</div>
+                </aside>
+            </div>
+            <div id="playertracker">player tracker</div>
+        </div>
+    </div>
 </body>
 </html>

@@ -2,8 +2,8 @@
 
 1. Generate game board
 2. water level array
+    2.a update to the DOM
 3. card constructor
-    3.a one of the key values can be which deck they belong to
     3.b build treasure deck (math.random)
     3.c build flood deck (math.random)
 4. function initial flood (flood 6 tiles)
