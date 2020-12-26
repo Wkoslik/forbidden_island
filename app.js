@@ -23,3 +23,6 @@
     12.b if player collects treasure, goes to fools landing, and flies off THEN player wins
 13. Collect Treasure Function
     13.a if player on tile && if player has 4 treasure cards && if treasure hasn't been collected
+*/
+
+let waterLevelArray = [2, 2, 3, 3, 3, 4, 4, 5, 5]

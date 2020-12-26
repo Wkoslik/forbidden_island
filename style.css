@@ -6,6 +6,7 @@ body{
     width: 90%;
     margin: 0 auto;
     padding: 0;
+    font-family: sans-serif;
 }
 
 #container{
@@ -43,15 +44,86 @@ canvas{
 
 #row2{
     display: flex;
+    width: 100%;
 }
 
 aside{
     border: 1px solid blue;
-    width: 20%;
+    width: 25%;
     display: inline;
 }
 
 #playertracker, #waterlevelcontainer{
     width: 100%;
     border: 1px solid greenyellow;
+}
+
+progress{
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 75px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 0px 0px;
+    font-size: 28px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    grid-template-areas:
+      "title title title title title title title title title title"
+      "Novice2 Normal2 Elite3 Legendary3 a3 a4 b4 a5 b5 dead"
+      "progressbar progressbar progressbar progressbar progressbar progressbar progressbar progressbar progressbar progressbar";
+  }
+  
+  .title{
+      grid-area: title;
+      text-align: center;
+      line-height: 50px;
+      font-size: 44px;
+  }
+  .Novice2 { 
+      grid-area: Novice2; 
+      text-align: center;
+    }
+  
+  .Normal2 { grid-area: Normal2; text-align: center;}
+  
+  .Elite3 { grid-area: Elite3; text-align: center;}
+  
+  .Legendary3 { grid-area: Legendary3; text-align: center;}
+  
+  .a3 { grid-area: a3; text-align: center;}
+  
+  .a4 { grid-area: a4; text-align: center;}
+  
+  .a5 { grid-area: a5; text-align: center;}
+  
+  .b4 { grid-area: b4; text-align: center;}
+  
+  .b5 { grid-area: b5; text-align: center;}
+  
+  .dead { grid-area: dead; }
+
+  .progressbar { 
+      grid-area: progressbar; 
+      display: flex;
+      justify-content: center;
+    }
+
+#skull{
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.flooded{
+    background-color: blue;
+}
+
+canvas{
+    width: 75%;
 }

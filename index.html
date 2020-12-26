@@ -5,28 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forbidden Island</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Fredericka+the+Great&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
-    <script src="./app.js"></script>
+    <script src="./app.js" defer></script>
 </head>
 <body>
     <div id=container>
         <h1>Forbidden Island</h1>
         <div id="gamecontainer">
-            <div id="waterlevelcontainer">waterlevel</div>
+            <div id="waterlevelcontainer" class="grid-container">
+                    <div class="title">Water Level</div>
+                    <div class="Novice2">2</div>    
+                    <div class="Normal2">2</div>
+                    <div class="Elite3">3</div>
+                    <div class="Legendary3">3</div>
+                    <div class="a3">3</div>
+                    <div class="a4">4</div>
+                    <div class="a5">4</div>
+                    <div class="b4">4</div>
+                    <div class="b5">5</div>
+                    <div class="dead">
+                        <img id="skull" src="./imgs/kisspng-jolly-roger-drink-sign-5b22243110f378.8453692715289641450694.png" alt="Red Skull and Crossbones">
+                    </div>
+                    <div class="progressbar">
+                        <progress max="100" value="85"></progress>
+                    </div>
+                
+            </div>
             <div id="row2">
-                <aside class="decks">
-                    <div id="treasuredeck">treasuredekc</div>
-                    <div id="treasurediscard">treasure discard</div>
-                    <div id="flooddeck">floor </div>
-                    <div id="flooddiscard">flood discard</div>
-                </aside>
                 <canvas id="game"></canvas>
                 <aside>
-                    <div id="actionoptions">rules</div>
+                    <div id="actionoptions">
+                        <h3>Overview</h3>
+                        <ul>
+                            <li>Collect the treasure cards.</li>
+                            <li>Exchange FOUR treasure cards for an artifact.</li>
+                            <li>Escape the island before the island sinks.</li>
+                        </ul>
+                        <h3>Game Play</h3>
+                        <p>The game is divided into two game states: The Player turn and the Island turn.</p>
+                        <p>The Player always goes first followed by the Island.</p>
+                        <p>Player Turn:</p>
+                            <ul>
+                                <li>You have three actions. Those actions can be:</li>
+                                <ul>
+                                    <li>Moving</li>
+                                    <li>Exchanging treasure cards for an artifact.</li>
+                                    <li>Unflooding location tiles.</li>
+                                </ul>
+                                <li>After your three actions, draw two cards from the treasure deck.</li>
+                                <ul>
+                                    <li>If you pull a "Waters Rise" card, the water level increases and the flood discard pile is immediately shuffled and put on top of the Flood Draw pile.</li>
+                                </ul>
+                                <li>Collect 4 treasure cards (of the same treasure) and exchange them for the artifact. (hint: your hand limit is 5)</li>
+                                <li>Make it to Fools Landing and fly off with a "Helicopter Lift" before the island sinks.</li>
+                            </ul>
+                        <p>Island Turn</p>
+                            <ul>
+                                <li>The Island will flood the number of tiles equal to water level.</li>
+                                <li>If an already flooded tile is pulled, that tile sinks into the sea and is no longer usable by the player.</li>
+                            </ul>
+                        <p>Ways you can lose:</p>
+                            <ul>
+                                <li>Fools Landing sinks</li>
+                                <li>The artifact location sinks</li>
+                                <li>The Water Level reaches the skull and cross bones</li>
+                            </ul>
+                    </div>
                 </aside>
             </div>
-            <div id="playertracker">player tracker</div>
         </div>
     </div>
 </body>
