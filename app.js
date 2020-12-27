@@ -28,11 +28,15 @@
 console.log("yodel");
 
 //setting up the game
-let game = document.getElementById('game');
-let movement = 10;
-let ctx =game.getContext('2d');
-game.setAttribute('height', getComputedStyle(game)['height']);
-game.setAttribute('width', getComputedStyle(game)['width']);
+let background = document.getElementById('background');
+let movement = 85;
+let backgroundCtx = background.getContext('2d');
+background.setAttribute('height', getComputedStyle(background)['height']);
+background.setAttribute('width', getComputedStyle(background)['width']);
+let playersCanvas = document.getElementById('players');
+let playerCtx = playersCanvas.getContext('2d');
+playersCanvas.setAttribute('height', getComputedStyle(playersCanvas)['height']);
+playersCanvas.setAttribute('width', getComputedStyle(playersCanvas)['width']);
 
 //setting up game variables
 let waterLevelArray = [2, 2, 3, 3, 3, 4, 4, 5, 5, 6];
@@ -74,12 +78,12 @@ function Deck(y, color, strokeStyle, title){
     this.text = title
     this.strokeStyle = strokeStyle,
     this.render = function() {
-        ctx.fillStyle = this.color;
-        ctx.strokeStyle = this.strokeStyle;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
-        ctx.font = '22px sans-serif';
-        ctx.fillText(this.text, this.x, this.y - 10, this.x + this.width);
+        backgroundCtx.fillStyle = this.color;
+        backgroundCtx.strokeStyle = this.strokeStyle;
+        backgroundCtx.fillRect(this.x, this.y, this.width, this.height);
+        backgroundCtx.strokeRect(this.x, this.y, this.width, this.height);
+        backgroundCtx.font = '22px sans-serif';
+        backgroundCtx.fillText(this.text, this.x, this.y - 10, this.x + this.width);
     }
 }
 
@@ -105,11 +109,11 @@ function Board(x, y, fillColor, textColor, text){
     this.strokeStyle = textColor, 
     this.text = text, 
     this.render = function() {
-        ctx.fillStyle = this.color;
-        ctx.strokeStyle = this.strokeStyle;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.font = '16px sans-serif';
-        ctx.strokeText(this.text, this.x + 5, this.y + 42, this.width -10);
+        backgroundCtx.fillStyle = this.color;
+        backgroundCtx.strokeStyle = this.strokeStyle;
+        backgroundCtx.fillRect(this.x, this.y, this.width, this.height);
+        backgroundCtx.font = '16px sans-serif';
+        backgroundCtx.strokeText(this.text, this.x + 5, this.y + 42, this.width -10);
     }
 }
 
@@ -182,3 +186,57 @@ twilightHollow.render();
 caveOfEmbers.render();
 cliffsOfAbandon.render();
 breakersBridge.render();
+
+//create Player
+
+function Player(x,y, color, text) {
+    this.x = x, 
+    this.y = y, 
+    this.radius = 20,
+    this.color = color, 
+    this.text = text, 
+    this.startAngle = 0,
+    this.endAngle = 2 * Math.PI,
+    this.direction = true,
+    this.render = function() {
+        playerCtx.beginPath();
+        playerCtx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, this.direction);
+        playerCtx.fillStyle = this.color;
+        playerCtx.fill();
+    }
+}
+
+let pilot = new Player(col3 + 37.5, row3 + 37.5, 'blue', 'Pilot')
+
+pilot.render();
+
+//game loop
+let movementLoop = () =>{
+    playerCtx.clearRect(0,0, playersCanvas.width, playersCanvas.height);
+    pilot.render();
+}
+
+
+//movement
+
+let movementHandler = (e) => {
+    if(e.key === 'w'){
+        pilot.y -= movement;
+        console.log(pilot.y);
+    } else if (e.key === 'a'){
+        pilot.x -= movement;
+        console.log(pilot.x);
+    } else if (e.key === 's'){
+        pilot.y += movement;
+        console.log(pilot.y);
+    } else if (e.key ==='d'){
+        pilot.x += movement;
+        console.log(pilot.x);
+    } else{
+        alert("That key won't let you move. Try W, A, S, or D.");
+    }
+}
+
+document.addEventListener('keydown', movementHandler);
+
+let gameInterval = setInterval(movementLoop, 100);

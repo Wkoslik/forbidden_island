@@ -51,6 +51,11 @@ aside{
     border: 1px solid blue;
     width: 25%;
     display: inline;
+    
+}
+
+#players{
+    position: absolute;
 }
 
 #playertracker, #waterlevelcontainer{
