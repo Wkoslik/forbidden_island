@@ -47,6 +47,16 @@ let locations = ['Howling Garden', 'Lost Lagoon', 'Cave of Shadows', 'Phantom Ro
                 'Gold Gate', 'Bronze Gate', 'Crimson Forest', 'Observatory', 
                 'Tidal Palace', 'Whispering Garden', 'Temple of the Moon', 'Misty Marsh',
                 'Twilight Hollow', 'Cave of Embers', 'Cliffs of Abandon', 'Breakers Bridge'];
+let treasures = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!',
+                'Sandbags', 'Sandbags',
+                'Helicopter Lift', 'Helicopter Lift', 'Helicopter Lift', 
+                'Earth', 'Earth', 'Earth', 'Earth', 'Earth',
+                'Water', 'Water', 'Water', 'Water', 'Water',
+                'Fire', 'Fire', 'Fire', 'Fire', 'Fire', 
+                'Air', 'Air', 'Air', 'Air', 'Air'];
+let locationsDiscard = [];
+let treasuresDiscard = [];
+
 
 //Shuffle Deck
 const shuffleDeck = (deck) =>{
@@ -215,7 +225,6 @@ let movementLoop = () =>{
     playerCtx.clearRect(0,0, playersCanvas.width, playersCanvas.height);
     pilot.render();
 }
-
 
 //movement with board game boundaries
 
