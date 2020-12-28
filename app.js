@@ -119,7 +119,7 @@ function Board(x, y, fillColor, textColor, text){
 
 let q = 85;
 let row1 = 25;
-let col3 = 660;
+let col3 = 575;
 let col2 = col3 - q;
 let col1 = col2 - q;
 let col4 = col3+q;
@@ -217,21 +217,49 @@ let movementLoop = () =>{
 }
 
 
-//movement
+//movement with board game boundaries
 
 let movementHandler = (e) => {
-    if(e.key === 'w'){
+    if ((pilot.x === 612.5 && pilot.y === 62.5 && e.key === 'w') || 
+    (pilot.x === 697.5 && pilot.y === 62.5 && e.key === 'w') ||
+    (pilot.x === 782.5 && pilot.y === 147.5 && e.key === 'w') ||
+    (pilot.x === 867.5 && pilot.y === 232.5 && e.key === 'w')  ||
+    (pilot.x === 442.5 && pilot.y === 232.5 && e.key === 'w') ||
+    (pilot.x === 527.5 && pilot.y === 147.5 && e.key === 'w')) {
+        alert("You can't move further North. Try a different direction.")
+    } else if ((pilot.x === 612.5 && pilot.y === 487.5 && e.key === 's') || 
+    (pilot.x === 697.5 && pilot.y === 487.5 && e.key === 's') ||
+    (pilot.x === 782.5 && pilot.y === 402.5 && e.key === 's') ||
+    (pilot.x === 867.5 && pilot.y === 317.5 && e.key === 's')  ||
+    (pilot.x === 442.5 && pilot.y === 317.5 && e.key === 's') ||
+    (pilot.x === 527.5 && pilot.y === 402.5 && e.key === 's')) {
+        alert("You can't move further South. Try a different direction.")
+    } else if ((pilot.x === 612.5 && pilot.y === 62.5 && e.key === 'a') || 
+    (pilot.x === 527.5 && pilot.y === 147.5 && e.key === 'a') ||
+    (pilot.x === 442.5 && pilot.y === 232.5 && e.key === 'a') ||
+    (pilot.x === 612.5 && pilot.y === 487.5 && e.key === 'a')  ||
+    (pilot.x === 442.5 && pilot.y === 317.5 && e.key === 'a') ||
+    (pilot.x === 527.5 && pilot.y === 402.5 && e.key === 'a')) {
+        alert("You can't move further West. Try a different direction.")
+    } else if ((pilot.x === 697.5 && pilot.y === 487.5 && e.key === 'd') || 
+    (pilot.x === 782.5 && pilot.y === 402.5 && e.key === 'd') ||
+    (pilot.x === 867.5 && pilot.y === 317.5 && e.key === 'd') ||
+    (pilot.x === 867.5 && pilot.y === 232.5 && e.key === 'd')  ||
+    (pilot.x === 782.5 && pilot.y === 147.5 && e.key === 'd') ||
+    (pilot.x === 697.5 && pilot.y === 62.5 && e.key === 'd')) {
+        alert("You can't move further East. Try a different direction.")
+    } else if (e.key === 'w'){
         pilot.y -= movement;
-        console.log(pilot.y);
+        console.log(pilot.x, pilot.y);
     } else if (e.key === 'a'){
         pilot.x -= movement;
-        console.log(pilot.x);
+        console.log(pilot.x, pilot.y);
     } else if (e.key === 's'){
         pilot.y += movement;
-        console.log(pilot.y);
+        console.log(pilot.x, pilot.y);
     } else if (e.key ==='d'){
         pilot.x += movement;
-        console.log(pilot.x);
+        console.log(pilot.x, pilot.y);
     } else{
         alert("That key won't let you move. Try W, A, S, or D.");
     }
