@@ -223,7 +223,9 @@ pilot.render();
 //game loop
 let movementLoop = () =>{
     playerCtx.clearRect(0,0, playersCanvas.width, playersCanvas.height);
+    flood1.render();
     pilot.render();
+    
 }
 
 //movement with board game boundaries
@@ -277,3 +279,35 @@ let movementHandler = (e) => {
 document.addEventListener('keydown', movementHandler);
 
 let gameInterval = setInterval(movementLoop, 100);
+
+//Player hand limit
+
+const playerHandLimit = () => {
+    if(playersCanvas.length > 5){
+        chooseCardsToRemove();
+    }
+}
+
+//removeCards
+
+const chooseCardsToRemove = () => {
+
+}
+
+//flood
+
+function FloodTiles(x, y) {
+    this.x = x, 
+    this.y = y, 
+    this.width = 75, 
+    this.height = 75, 
+    this.color = 'rgba(34, 167, 240, .5', 
+    this.render = function() {
+        playerCtx.fillStyle = this.color;
+        playerCtx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
+
+let flood1 = new FloodTiles(col4, row4);
+
+flood1.render();
