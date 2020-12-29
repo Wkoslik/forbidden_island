@@ -53,7 +53,11 @@ let treasures = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!',
                 'Air', 'Air', 'Air', 'Air', 'Air'];
 let locationsDiscard = [];
 let treasuresDiscard = [];
-let pilot = document.getElementById("pilot");
+var pilot = {
+    x: 387,
+    y: 127,
+    element: document.getElementById("pilot")
+}
 
 //Shuffle Deck
 const shuffleDeck = (deck) =>{
@@ -73,6 +77,52 @@ const shuffleDeck = (deck) =>{
 
 }
 
-
 //movement with board game boundaries
 
+const movementHandler = (e) => {
+    if ((pilot.x === 387 && pilot.y === 127 && e.key === 'w') || 
+    (pilot.x === 302 && pilot.y === 42 && e.key === 'w') ||
+    (pilot.x === 217 && pilot.y === 42 && e.key === 'w') ||
+    (pilot.x === 132 && pilot.y === 127 && e.key === 'w')  ||
+    (pilot.x === 47 && pilot.y === 212 && e.key === 'w') ||
+    (pilot.x === 472 && pilot.y === 212 && e.key === 'w')) {
+        alert("You can't move further North. Try a different direction.")
+    } else if ((pilot.x === 472 && pilot.y === 97 && e.key === 's') || 
+    (pilot.x === 387 && pilot.y === 382 && e.key === 's') ||
+    (pilot.x === 302 && pilot.y === 467 && e.key === 's') ||
+    (pilot.x === 217 && pilot.y === 467 && e.key === 's')  ||
+    (pilot.x === 132 && pilot.y === 382 && e.key === 's') ||
+    (pilot.x === 47 && pilot.y === 297 && e.key === 's')) {
+        alert("You can't move further South. Try a different direction.")
+    } else if ((pilot.x === 217 && pilot.y === 42 && e.key === 'a') || 
+    (pilot.x === 132 && pilot.y === 127 && e.key === 'a') ||
+    (pilot.x === 47 && pilot.y === 212 && e.key === 'a') ||
+    (pilot.x === 47 && pilot.y === 297 && e.key === 'a')  ||
+    (pilot.x === 132 && pilot.y === 382 && e.key === 'a') ||
+    (pilot.x === 217 && pilot.y === 467 && e.key === 'a')) {
+        alert("You can't move further West. Try a different direction.")
+    } else if ((pilot.x === 302 && pilot.y === 42 && e.key === 'd') || 
+    (pilot.x === 387 && pilot.y === 127 && e.key === 'd') ||
+    (pilot.x === 472 && pilot.y === 212 && e.key === 'd') ||
+    (pilot.x === 472 && pilot.y === 297 && e.key === 'd')  ||
+    (pilot.x === 387 && pilot.y === 382 && e.key === 'd') ||
+    (pilot.x === 302 && pilot.y === 467 && e.key === 'd')) {
+        alert("You can't move further East. Try a different direction.")
+    } else if (e.key === 'w'){
+        pilot.element.style.top = (pilot.y -= movement) + 'px';
+        console.log(pilot.x, pilot.y);
+    } else if (e.key === 'a'){
+        pilot.element.style.left = (pilot.x -= movement) + 'px';
+        console.log(pilot.x, pilot.y);
+    } else if (e.key === 's'){
+        pilot.element.style.top =  (pilot.y += movement) + 'px';
+        console.log(pilot.x, pilot.y);
+    } else if (e.key ==='d'){
+        pilot.element.style.left = (pilot.x += movement) + 'px';
+        console.log(pilot.x, pilot.y);
+    } else{
+        alert("That key won't let you move. Try W, A, S, or D.");
+    }
+}
+
+document.addEventListener('keydown', movementHandler);
