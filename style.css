@@ -64,6 +64,26 @@ aside{
     width: 173px;
     border: 1px dotted black;
     margin: 4px;
+    text-align: center;
+    font-size: 32px;
+    font-family: 'Fredericka the Great', sans-serif;
+    color: white;
+    line-height: 124.6px;
+
+}
+
+.title{
+    font-family: 'Fredericka the Great', sans-serif;
+}
+
+#treasuredraw{
+    background-image: linear-gradient(45deg, #b80201 25%, #d64800 25%, #d64800 50%, #b80201 50%, #b80201 75%, #d64800 75%, #d64800 100%);
+    background-size: 28.28px 28.28px;
+}
+
+#flooddraw{
+    background-image: linear-gradient(45deg, #3b55b3 25%, #669db3 25%, #669db3 50%, #3b55b3 50%, #3b55b3 75%, #669db3 75%, #669db3 100%);
+    background-size: 28.28px 28.28px;
 }
 
 #game{

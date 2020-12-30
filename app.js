@@ -155,7 +155,6 @@ const drawCards = () => {
 
 //randomly assign tiles
 
-
 const randomTiles = () =>{
     shuffleDeck(locIds);
     let element = document.getElementsByClassName('tile');
