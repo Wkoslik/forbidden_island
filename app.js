@@ -38,7 +38,7 @@ let movement = 85;
 //setting up game variables
 let waterLevelArray = [2, 2, 3, 3, 3, 4, 4, 5, 5, 6];
 let playerHand = [];
-let locations = ['Howling Garden', 'Lost Lagoon', 'Cave of Shadows', 'Phantom Rock', 
+let locations2 = ['Howling Garden', 'Lost Lagoon', 'Cave of Shadows', 'Phantom Rock', 
                 'Silver Gate', 'Temple of the Sun', 'Watchtower', 'Iron Gate', 
                 'Fools Landing', 'Copper Gate', 'Coral Palace', 'Dunes of Deception', 
                 'Gold Gate', 'Bronze Gate', 'Crimson Forest', 'Observatory', 
@@ -67,6 +67,26 @@ var pilot = {
     y: 127,
     element: document.getElementById("pilot")
 }
+let floodedLocations = []
+let locations = [];
+
+//id, flooded(true/false), sunk(true/false), background, name
+
+function CreateLocations(locName, id){
+    this.name = locName,
+    this.id = id,
+    this.flooded = false,
+    this.sunk = false,
+    this.width = '75px',
+    this.height = '75px'
+    this.pushToLocations = function() {
+        locations.push(this);
+    }
+    this.pushToLocations();
+}
+
+
+
 
 //Shuffle Deck
 const shuffleDeck = (deck) =>{
@@ -155,11 +175,10 @@ const drawCards = () => {
 
 //randomly assign tiles
 
+
 const randomTiles = () =>{
     shuffleDeck(locIds);
     let element = document.getElementsByClassName('tile');
-    console.log(element);
-    //if tile id == "", then apply id
     for(let i = 0; i <locIds.length ; i++){
             if (element[i].id === ""){
                 element[i].setAttribute('id', locIds[i])
@@ -167,4 +186,20 @@ const randomTiles = () =>{
         }
     }
 
-randomTiles();
+const gameSetup = () =>{
+    randomTiles();
+    //shuffle flood deck
+    //flood six tiles
+    //shuffle treasure cards
+    //two treasure cards to the player
+    //push watersrise into treasure deck
+    //shuffle treasuredeck
+}
+
+gameSetup();
+
+
+let howlingGarden = new CreateLocations('Howling Garden', 'howlinggarden');
+let phantomRock = new CreateLocations('Phantom Rock', 'phantomrock');
+
+console.log(locations);

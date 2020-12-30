@@ -277,6 +277,8 @@ progress{
 #whisperinggarden{
     background-image: url('./imgs/tiles/whisperingtile.jpeg');
     background-size: contain;
+    left: auto;
+    top: auto;
 }
 
 #templeofthemoon{
