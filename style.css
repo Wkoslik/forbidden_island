@@ -169,7 +169,122 @@ progress{
     background-color: blue;
 }
 
+#howlinggarden{
+    background-image: url('./imgs/tiles/howlingtile.jpeg');
+    background-size: contain;
+}
+
+#lostlagoon{
+    background-image: url('./imgs/tiles/losttile.jpeg');
+    background-size: contain;
+}
+
+#caveofshadows{
+    background-image: url('./imgs/tiles/shadowstile.jpeg');
+    background-size: contain;
+}
+
+#phantomrock{
+    background-image: url('./imgs/tiles/phantomtile.jpeg');
+    background-size: contain;
+}
+
+#silvergate{
+    background-image: url('./imgs/tiles/silvertile.jpeg');
+    background-size: contain;
+}
+
+#templeofthesun{
+    background-image: url('./imgs/tiles/suntile.jpeg');
+    background-size: contain;
+}
+
+#watchtower{
+    background-image: url('./imgs/tiles/watchtowertile.jpeg');
+    background-size: contain;
+}
+
+#irongate{
+    background-image: url('./imgs/tiles/irontile.jpeg');
+    background-size: contain;
+}
+
+#foolslanding{
+    background-image: url('./imgs/tiles/foolstile.jpeg');
+    background-size: contain;
+}
+
+#coppergate{
+    background-image: url('./imgs/tiles/coppertile.jpeg');
+    background-size: contain;
+}
+
+#coralpalace{
+    background-image: url('./imgs/tiles/coraltile.jpeg');
+    background-size: contain;
+}
+
+#dunesofdeception{
+    background-image: url('./imgs/tiles/dunestile.jpeg');
+    background-size: contain;
+}
+
+#goldgate{
+    background-image: url('./imgs/tiles/goldtile.jpeg');
+    background-size: contain;
+}
+
+#bronzegate{
+    background-image: url('./imgs/tiles/bronzetile.jpeg');
+    background-size: contain;
+}
+
+#crimsonforest{
+    background-image: url('./imgs/tiles/crimsontile.jpeg');
+    background-size: contain;
+}
+
+#observatory{
+    background-image: url('./imgs/tiles/observatorytile.jpeg');
+    background-size: contain;
+}
+
+#tidalpalace{
+    background-image: url('./imgs/tiles/tildaltile.jpeg');
+    background-size: contain;
+}
+
+#whisperinggarden{
+    background-image: url('./imgs/tiles/whisperingtile.jpeg');
+    background-size: contain;
+}
+
+#templeofthemoon{
+    background-image: url('./imgs/tiles/moontile.jpeg');
+    background-size: contain;
+}
+
+#mistymarsh{
+    background-image: url('./imgs/tiles/mistytile.jpeg')
+}
+
+#twilighthollow{
+    background-image: url('./imgs/tiles/twilighttile.jpeg');
+    background-size: contain;
+}
+
+#caveofembers{
+    background-image: url('./imgs/tiles/emberstile.jpeg');
+    background-size: contain;
+}
+
+#cliffesofabandon{
+    background-image: url('./imgs/tiles/cliffstile.jpeg');
+    background-size: contain;
+}
+
 #breakersbridge{
     background-image: url('./imgs/tiles/breakersbridgetile.jpeg');
     background-size: contain;
 }
+

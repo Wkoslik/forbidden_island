@@ -44,13 +44,16 @@ let locations = ['Howling Garden', 'Lost Lagoon', 'Cave of Shadows', 'Phantom Ro
                 'Gold Gate', 'Bronze Gate', 'Crimson Forest', 'Observatory', 
                 'Tidal Palace', 'Whispering Garden', 'Temple of the Moon', 'Misty Marsh',
                 'Twilight Hollow', 'Cave of Embers', 'Cliffs of Abandon', 'Breakers Bridge'];
-let treasures = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!',
-                'Sandbags', 'Sandbags',
+let treasureDeck = ['Sandbags', 'Sandbags',
                 'Helicopter Lift', 'Helicopter Lift', 'Helicopter Lift', 
                 'Earth', 'Earth', 'Earth', 'Earth', 'Earth',
                 'Water', 'Water', 'Water', 'Water', 'Water',
                 'Fire', 'Fire', 'Fire', 'Fire', 'Fire', 
                 'Air', 'Air', 'Air', 'Air', 'Air'];
+let watersRiseDeck = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!'];
+let islandTurn = true;
+let waterLevelIndex = 0;
+let playerDraw = 2;
 let locationsDiscard = [];
 let treasuresDiscard = [];
 var pilot = {
@@ -63,7 +66,6 @@ var pilot = {
 const shuffleDeck = (deck) =>{
     let currentIndex = deck.length, tempValue, randomIndex;
 
-    //
     while (0 !== currentIndex){
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
@@ -87,7 +89,7 @@ const movementHandler = (e) => {
     (pilot.x === 47 && pilot.y === 212 && e.key === 'w') ||
     (pilot.x === 472 && pilot.y === 212 && e.key === 'w')) {
         alert("You can't move further North. Try a different direction.")
-    } else if ((pilot.x === 472 && pilot.y === 97 && e.key === 's') || 
+    } else if ((pilot.x === 472 && pilot.y === 297 && e.key === 's') || 
     (pilot.x === 387 && pilot.y === 382 && e.key === 's') ||
     (pilot.x === 302 && pilot.y === 467 && e.key === 's') ||
     (pilot.x === 217 && pilot.y === 467 && e.key === 's')  ||
@@ -126,3 +128,31 @@ const movementHandler = (e) => {
 }
 
 document.addEventListener('keydown', movementHandler);
+
+//flood
+
+const flood = () =>{
+    if (islandTurn === true){
+        drawCards();
+        //apply flood class to the tiles tied to the flood cards
+        //add a on click even that unfloods the cards to the tiles flooded
+    }
+}
+
+const drawCards = () => {
+    if(islandTurn === true){
+    locationsDiscard.push(locations.splice(0,waterLevelArray[waterLevelIndex]));
+    } else {
+        playerHand.push(treasureDeck.splice(0,2));
+    }
+}
+
+//randomly assign tiles
+
+
+const randomTiles = () =>{
+    //if tile id == "", then apply id
+    for(let i = 0; i <24 ; i++){
+        
+    }
+}
