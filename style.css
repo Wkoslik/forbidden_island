@@ -25,12 +25,6 @@ h1{
     margin: 4px;
 }
 
-
-canvas{
-    width: 60%;
-    display: inline;
-}
-
 #row2{
     display: flex;
     width: 100%;
@@ -42,7 +36,7 @@ aside{
 }
 
 #board{
-    width: 75%;
+    width: 1000px;
     border: 1px solid black;    
 }
 
@@ -56,7 +50,7 @@ aside{
 }
 #decks{
     border: 1px solid red;
-    width: 25%;
+    width: 250px;
 }
 
 #treasuredraw, #treasurediscard, #flooddraw, #flooddiscard{
@@ -168,15 +162,13 @@ progress{
     margin: 0 auto;
 }
 
-.flooded{
-    background-color: rgba(34, 167, 240, .5);
-}
 
 .tile{
     border: 1px solid black;
     margin: 10px 5px 10px 5px;
     width: 75px;
     height: 75px;
+    display: block;
 }
 
 #pilot{
@@ -187,6 +179,7 @@ progress{
     left: 387px;
     border-radius: 100%;
     background-color: blue;
+    z-index: 10;
 }
 
 #howlinggarden{
@@ -277,8 +270,6 @@ progress{
 #whisperinggarden{
     background-image: url('./imgs/tiles/whisperingtile.jpeg');
     background-size: contain;
-    left: auto;
-    top: auto;
 }
 
 #templeofthemoon{
@@ -311,3 +302,7 @@ progress{
     background-size: contain;
 }
 
+
+.flooded{
+    background-color: rgba(34, 167, 240, .5);
+}

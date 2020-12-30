@@ -45,20 +45,20 @@ let treasureDeck = ['Sandbags', 'Sandbags',
                 'Fire', 'Fire', 'Fire', 'Fire', 'Fire', 
                 'Air', 'Air', 'Air', 'Air', 'Air'];
 let watersRiseDeck = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!'];
-let islandTurn = true;
+let islandTurn = false;
 let waterLevelIndex = 0;
 let playerDraw = 2;
-let locationsDiscard = [];
+let floodDiscard = [];
 let treasuresDiscard = [];
 var pilot = {
     x: 387,
     y: 127,
     element: document.getElementById("pilot")
 }
-let floodedLocations = []
+let floodHolding;
+let sunkLocations = [];
 let locations = [];
 
-//id, flooded(true/false), sunk(true/false), background, name
 
 function CreateLocations(locName, id){
     this.name = locName,
@@ -88,7 +88,7 @@ let dunesOfDeception = new CreateLocations('Dunes of Deception', 'dunesofdecepti
 let goldGate = new CreateLocations('Gold Gate', 'goldgate');
 let bronzeGate = new CreateLocations('Bronze Gate', 'bronzegate');
 let crimsonForest = new CreateLocations('Crimson Forest', 'crimsonforest');
-let observatory = new CreateLocations('Observator', 'observatory');
+let observatory = new CreateLocations('Observatory', 'observatory');
 let tidalPalace = new CreateLocations('Tidal Palace', 'tidalpalace');
 let whisperingGarden = new CreateLocations('Whispering Garden', 'whisperinggarden');
 let templeOfTheMoon = new CreateLocations('Temple of the Moon', 'templeofthemoon');
@@ -97,7 +97,6 @@ let twilightHollow = new CreateLocations('Twilight Hollow', 'twilighthollow');
 let caveOfEmbers = new CreateLocations('Cave Of Embers', 'caveofembers');
 let cliffsOfAbandon = new CreateLocations('Cliffs of Abandon', 'cliffsofabandon');
 let breakersBridge = new CreateLocations('Breakers Bridge', 'breakersbridge');
-
 
 //Shuffle Deck
 const shuffleDeck = (deck) =>{
@@ -169,17 +168,87 @@ document.addEventListener('keydown', movementHandler);
 //flood
 
 const flood = () =>{
+    //if it's the islands turn
     if (islandTurn === true){
+        //draw cards
         drawCards();
-        //apply flood class to the tiles tied to the flood cards
-        //add a on click even that unfloods the cards to the tiles flooded
+        console.log(floodHolding);
+        for(let i = 0; i < floodHolding.length; i++){
+            //if the island cards pulled are already flooded
+            if(floodHolding[i].flooded === true){
+                //sink the location
+                floodHolding[i].sunk = true;
+                //remove the background image
+                document.getElementById(floodHolding[i].id).style.backgroundImage = 'none';
+                //change the square to blue so you know the player can't move there
+                document.getElementById(floodHolding[i].id).style.backgroundColor = 'blue';
+                //push the location to the sunkLocations hand
+                sunkLocations.push(floodHolding[i]);
+                //remove from floodHolding
+            } else { //otherwise
+                //switch flooded to true
+                floodHolding[i].flooded = true;
+                //switch the opacity of the tile to 50%
+                document.getElementById(floodHolding[i].id).style.opacity = '50%';
+                //add the class 'flooded'
+                document.getElementById(floodHolding[i].id).classList.add = 'flooded';
+                //add an event listener to unflood
+                document.getElementById(floodHolding[i].id).addEventListener('click', unflood());
+                //push from floodHolding into flood discard
+                floodDiscard.push(floodHolding[i]);
+                //remove from flood holding
+            }
+        }
+        islandTurn = false;
+    } else {
+        shuffleDeck(locations);
+        floodHolding = locations.splice(0,6);
+        for(let i = 0; i < 6; i++){
+            //switch flooded to true
+            floodHolding[i].flooded = true;
+            //switch the opacity of the tile to 50%
+            document.getElementById(floodHolding[i].id).style.opacity = '50%';
+            //add the class 'flooded'
+            document.getElementById(floodHolding[i].id).classList.add('flooded');
+            //add an event listener to unflood
+            document.getElementById(floodHolding[i].id).addEventListener('click', unflood);
+            //push from floodHolding into flood discard
+            floodDiscard.push(floodHolding[i]);
+        }
     }
+    floodHolding.length = 0;
 }
 
+//unflood
+
+const unflood = (e) =>{
+    let id = e.srcElement.id;
+    var combinedLocations = [locations, floodDiscard];
+
+    document.getElementById(id).classList.remove('flooded');
+    document.getElementById(id).style.opacity = '100%';
+    document.getElementById(id).removeEventListener('click', unflood);
+    
+    for(let i = 0; i<combinedLocations.length; i++){
+        for(let j = 0; j < combinedLocations[i].length; j++){
+            if(combinedLocations[i][j].id = id){
+                combinedLocations[i][j].flooded = false
+            } else{
+                return;
+            }
+        }
+    }
+
+}
+
+//Draw cards
 const drawCards = () => {
+    //if it's the island's turn
     if(islandTurn === true){
-    locationsDiscard.push(locations.splice(0,waterLevelArray[waterLevelIndex]));
+        //push number of cards equal to water level array into flood holding
+    floodHolding.push(locations.splice(0,waterLevelArray[waterLevelIndex]));
     } else {
+        //otherwise, push 2 cards into the player hand
         playerHand.push(treasureDeck.splice(0,2));
     }
 }
@@ -198,16 +267,15 @@ const randomTiles = () =>{
     }
 
 const gameSetup = () =>{
+    //randomly generate board
     randomTiles();
-    //shuffle flood deck
-    //flood six tiles
+    //randomly flood 6 tiles
+    flood();
     //shuffle treasure cards
     //two treasure cards to the player
     //push watersrise into treasure deck
     //shuffle treasuredeck
 }
 
+
 gameSetup();
-
-
-console.log(locations);
