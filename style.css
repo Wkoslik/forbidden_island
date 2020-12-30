@@ -265,7 +265,8 @@ progress{
 }
 
 #mistymarsh{
-    background-image: url('./imgs/tiles/mistytile.jpeg')
+    background-image: url('./imgs/tiles/mistytile.jpeg');
+    background-size: contain;
 }
 
 #twilighthollow{
@@ -278,7 +279,7 @@ progress{
     background-size: contain;
 }
 
-#cliffesofabandon{
+#cliffsofabandon{
     background-image: url('./imgs/tiles/cliffstile.jpeg');
     background-size: contain;
 }

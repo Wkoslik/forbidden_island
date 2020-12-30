@@ -51,6 +51,12 @@ let treasureDeck = ['Sandbags', 'Sandbags',
                 'Fire', 'Fire', 'Fire', 'Fire', 'Fire', 
                 'Air', 'Air', 'Air', 'Air', 'Air'];
 let watersRiseDeck = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!'];
+let locIds = ['howlinggarden', 'lostlagoon', 'caveofshadows', 'phantomrock', 
+'silvergate', 'templeofthesun', 'watchtower', 'irongate', 'foolslanding', 
+'coppergate', 'coralpalace', 'dunesofdeception', 'goldgate', 'bronzegate', 
+'crimsonforest', 'observatory', 'tidalpalace', 'whisperinggarden', 
+'templeofthemoon', 'mistymarsh', 'twilighthollow', 'caveofembers', 
+'cliffsofabandon', 'breakersbridge'];
 let islandTurn = true;
 let waterLevelIndex = 0;
 let playerDraw = 2;
@@ -151,8 +157,15 @@ const drawCards = () => {
 
 
 const randomTiles = () =>{
+    shuffleDeck(locIds);
+    let element = document.getElementsByClassName('tile');
+    console.log(element);
     //if tile id == "", then apply id
-    for(let i = 0; i <24 ; i++){
-        
+    for(let i = 0; i <locIds.length ; i++){
+            if (element[i].id === ""){
+                element[i].setAttribute('id', locIds[i])
+            }
+        }
     }
-}
+
+randomTiles();
