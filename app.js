@@ -38,12 +38,6 @@ let movement = 85;
 //setting up game variables
 let waterLevelArray = [2, 2, 3, 3, 3, 4, 4, 5, 5, 6];
 let playerHand = [];
-let locations2 = ['Howling Garden', 'Lost Lagoon', 'Cave of Shadows', 'Phantom Rock', 
-                'Silver Gate', 'Temple of the Sun', 'Watchtower', 'Iron Gate', 
-                'Fools Landing', 'Copper Gate', 'Coral Palace', 'Dunes of Deception', 
-                'Gold Gate', 'Bronze Gate', 'Crimson Forest', 'Observatory', 
-                'Tidal Palace', 'Whispering Garden', 'Temple of the Moon', 'Misty Marsh',
-                'Twilight Hollow', 'Cave of Embers', 'Cliffs of Abandon', 'Breakers Bridge'];
 let treasureDeck = ['Sandbags', 'Sandbags',
                 'Helicopter Lift', 'Helicopter Lift', 'Helicopter Lift', 
                 'Earth', 'Earth', 'Earth', 'Earth', 'Earth',
@@ -51,12 +45,6 @@ let treasureDeck = ['Sandbags', 'Sandbags',
                 'Fire', 'Fire', 'Fire', 'Fire', 'Fire', 
                 'Air', 'Air', 'Air', 'Air', 'Air'];
 let watersRiseDeck = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!'];
-let locIds = ['howlinggarden', 'lostlagoon', 'caveofshadows', 'phantomrock', 
-'silvergate', 'templeofthesun', 'watchtower', 'irongate', 'foolslanding', 
-'coppergate', 'coralpalace', 'dunesofdeception', 'goldgate', 'bronzegate', 
-'crimsonforest', 'observatory', 'tidalpalace', 'whisperinggarden', 
-'templeofthemoon', 'mistymarsh', 'twilighthollow', 'caveofembers', 
-'cliffsofabandon', 'breakersbridge'];
 let islandTurn = true;
 let waterLevelIndex = 0;
 let playerDraw = 2;
@@ -85,7 +73,30 @@ function CreateLocations(locName, id){
     this.pushToLocations();
 }
 
-
+let howlingGarden = new CreateLocations('Howling Garden', 'howlinggarden');
+let lostLagoon = new CreateLocations('Lost Lagoon', 'lostlagoon');
+let caveOfShadows = new CreateLocations('Cave of Shadows', 'caveofshadows');
+let phantomRock = new CreateLocations('Phantom Rock', 'phantomrock');
+let silverGate = new CreateLocations('Silver Gate', 'silvergate');
+let templeOfTheSun = new CreateLocations('Temple of the Sun', 'templeofthesun');
+let watchtower = new CreateLocations('Watchtower', 'watchtower');
+let ironGate = new CreateLocations('Iron Gate', 'irongate');
+let foolsLanding = new CreateLocations('Fools Landing', 'foolslanding');
+let copperGate = new CreateLocations('Copper Gate', 'coppergate');
+let coralPalace = new CreateLocations('Coral Palace', 'coralpalace');
+let dunesOfDeception = new CreateLocations('Dunes of Deception', 'dunesofdeception');
+let goldGate = new CreateLocations('Gold Gate', 'goldgate');
+let bronzeGate = new CreateLocations('Bronze Gate', 'bronzegate');
+let crimsonForest = new CreateLocations('Crimson Forest', 'crimsonforest');
+let observatory = new CreateLocations('Observator', 'observatory');
+let tidalPalace = new CreateLocations('Tidal Palace', 'tidalpalace');
+let whisperingGarden = new CreateLocations('Whispering Garden', 'whisperinggarden');
+let templeOfTheMoon = new CreateLocations('Temple of the Moon', 'templeofthemoon');
+let mistyMarsh = new CreateLocations('Misty Marsh', 'mistymarsh');
+let twilightHollow = new CreateLocations('Twilight Hollow', 'twilighthollow');
+let caveOfEmbers = new CreateLocations('Cave Of Embers', 'caveofembers');
+let cliffsOfAbandon = new CreateLocations('Cliffs of Abandon', 'cliffsofabandon');
+let breakersBridge = new CreateLocations('Breakers Bridge', 'breakersbridge');
 
 
 //Shuffle Deck
@@ -177,11 +188,11 @@ const drawCards = () => {
 
 
 const randomTiles = () =>{
-    shuffleDeck(locIds);
+    shuffleDeck(locations);
     let element = document.getElementsByClassName('tile');
-    for(let i = 0; i <locIds.length ; i++){
+    for(let i = 0; i < locations.length ; i++){
             if (element[i].id === ""){
-                element[i].setAttribute('id', locIds[i])
+                element[i].setAttribute('id', locations[i].id)
             }
         }
     }
@@ -198,8 +209,5 @@ const gameSetup = () =>{
 
 gameSetup();
 
-
-let howlingGarden = new CreateLocations('Howling Garden', 'howlinggarden');
-let phantomRock = new CreateLocations('Phantom Rock', 'phantomrock');
 
 console.log(locations);
