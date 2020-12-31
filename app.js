@@ -233,7 +233,7 @@ const unflood = (e) =>{
     if(((eventLoc.offsetTop === (pilot.y - 25 + 85)) && (eventLoc.offsetLeft === pilot.x - 25)) || //immediately south
         ((eventLoc.offsetTop === (pilot.y - 25 )-85) && (eventLoc.offsetLeft === pilot.x - 25)) || //north
         ((eventLoc.offsetLeft === (pilot.x - 25 )-85) && (eventLoc.offsetTop === pilot.y-25)) || //west
-        ((eventLoc.offsetLeft === (pilot.x - 25 )-85) && (eventLoc.offsetTop === pilot.y-25)) || // east
+        ((eventLoc.offsetLeft === (pilot.x - 25 )+85) && (eventLoc.offsetTop === pilot.y-25)) || // east
         ((eventLoc.offsetTop === (pilot.y - 25)) && (eventLoc.offsetLeft === pilot.x - 25))){ //tile their on
             document.getElementById(id).classList.remove('flooded');
             document.getElementById(id).style.opacity = '100%';
@@ -353,3 +353,26 @@ const playerTurn = () =>{
 }
 
 //if draw deck is empty
+
+const emptyDeck = (deck, draw) => {
+    if (deck.length < draw){
+
+    }
+}
+
+//display drawn cards
+    // treasure cards
+    // flood cards
+
+//player skip turn button
+//player discard card buttons
+//exchange treasure card button
+    //if on the right tile && has 4 of the same card
+//treasuresCollected = 0;
+//treasure icon? 
+//treasures to collect
+//if waters rise, then waters rise index ++
+//win condition
+    //fly away button
+//lose condition
+//helper text
