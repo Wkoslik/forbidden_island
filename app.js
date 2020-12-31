@@ -58,6 +58,8 @@ var pilot = {
 let floodHolding;
 let sunkLocations = [];
 let locations = [];
+let playerActions = [];
+let playerHandHold = [];
 
 
 function CreateLocations(locName, id){
@@ -118,33 +120,33 @@ const shuffleDeck = (deck) =>{
 //movement with board game boundaries
 
 const movementHandler = (e) => {
-    if ((pilot.x === 387 && pilot.y === 126 && e.key === 'w') || 
-    (pilot.x === 302 && pilot.y === 41 && e.key === 'w') ||
-    (pilot.x === 217 && pilot.y === 41 && e.key === 'w') ||
-    (pilot.x === 132 && pilot.y === 126 && e.key === 'w')  ||
-    (pilot.x === 47 && pilot.y === 211 && e.key === 'w') ||
-    (pilot.x === 472 && pilot.y === 211 && e.key === 'w')) {
+    if ((pilot.x === 385 && pilot.y === 130 && e.key === 'w') || //col4, row 1
+    (pilot.x === 300 && pilot.y === 45 && e.key === 'w') ||
+    (pilot.x === 215 && pilot.y === 45 && e.key === 'w') ||
+    (pilot.x === 130 && pilot.y === 130 && e.key === 'w')  ||
+    (pilot.x === 45 && pilot.y === 215 && e.key === 'w') ||
+    (pilot.x === 470 && pilot.y === 215 && e.key === 'w')) {
         alert("You can't move further North. Try a different direction.")
-    } else if ((pilot.x === 472 && pilot.y === 296 && e.key === 's') || 
-    (pilot.x === 387 && pilot.y === 381 && e.key === 's') ||
-    (pilot.x === 302 && pilot.y === 466 && e.key === 's') ||
-    (pilot.x === 217 && pilot.y === 466 && e.key === 's')  ||
-    (pilot.x === 132 && pilot.y === 381 && e.key === 's') ||
-    (pilot.x === 47 && pilot.y === 296 && e.key === 's')) {
+    } else if ((pilot.x === 470 && pilot.y === 300 && e.key === 's') || 
+    (pilot.x === 385 && pilot.y === 385 && e.key === 's') ||
+    (pilot.x === 300 && pilot.y === 470 && e.key === 's') ||
+    (pilot.x === 215 && pilot.y === 470 && e.key === 's')  ||
+    (pilot.x === 130 && pilot.y === 385 && e.key === 's') ||
+    (pilot.x === 45 && pilot.y === 300 && e.key === 's')) {
         alert("You can't move further South. Try a different direction.")
-    } else if ((pilot.x === 217 && pilot.y === 41 && e.key === 'a') || 
-    (pilot.x === 132 && pilot.y === 126 && e.key === 'a') ||
-    (pilot.x === 47 && pilot.y === 211 && e.key === 'a') ||
-    (pilot.x === 47 && pilot.y === 296 && e.key === 'a')  ||
-    (pilot.x === 132 && pilot.y === 381 && e.key === 'a') ||
-    (pilot.x === 217 && pilot.y === 466 && e.key === 'a')) {
+    } else if ((pilot.x === 215 && pilot.y === 45 && e.key === 'a') || 
+    (pilot.x === 130 && pilot.y === 130 && e.key === 'a') ||
+    (pilot.x === 45 && pilot.y === 215 && e.key === 'a') ||
+    (pilot.x === 45 && pilot.y === 300 && e.key === 'a')  ||
+    (pilot.x === 130 && pilot.y === 385 && e.key === 'a') ||
+    (pilot.x === 215 && pilot.y === 470 && e.key === 'a')) {
         alert("You can't move further West. Try a different direction.")
-    } else if ((pilot.x === 302 && pilot.y === 41 && e.key === 'd') || 
-    (pilot.x === 387 && pilot.y === 126 && e.key === 'd') ||
-    (pilot.x === 472 && pilot.y === 211 && e.key === 'd') ||
-    (pilot.x === 472 && pilot.y === 296 && e.key === 'd')  ||
-    (pilot.x === 387 && pilot.y === 381 && e.key === 'd') ||
-    (pilot.x === 302 && pilot.y === 466 && e.key === 'd')) {
+    } else if ((pilot.x === 300 && pilot.y === 45 && e.key === 'd') || 
+    (pilot.x === 385 && pilot.y === 130 && e.key === 'd') ||
+    (pilot.x === 470 && pilot.y === 215 && e.key === 'd') ||
+    (pilot.x === 470 && pilot.y === 300 && e.key === 'd')  ||
+    (pilot.x === 385 && pilot.y === 385 && e.key === 'd') ||
+    (pilot.x === 300 && pilot.y === 470 && e.key === 'd')) {
         alert("You can't move further East. Try a different direction.")
     } else if (e.key === 'w'){
         pilot.element.style.top = (pilot.y -= movement) + 'px';
@@ -222,25 +224,35 @@ const flood = () =>{
 //unflood
 
 const unflood = (e) =>{
-    let id = e.srcElement.id;
+    var id = e.srcElement.id;
     var combinedLocations = [locations, floodDiscard];
+    var eventLoc = document.getElementById(id);
 
-   // if()
-    document.getElementById(id).classList.remove('flooded');
-    document.getElementById(id).style.opacity = '100%';
-    document.getElementById(id).removeEventListener('click', unflood);
-    
-    //switch locations from flooded = true to flooded = false
-    for(let i = 0; i<combinedLocations.length; i++){
-        for(let j = 0; j < combinedLocations[i].length; j++){
-            if(combinedLocations[i][j].id = id){
-                combinedLocations[i][j].flooded = false
-            } else{
-                return;
-            }
-        }
+   //if the location clicked is not NSEW of the player, reject the click.
+
+    if(((eventLoc.offsetTop === (pilot.y - 25 + 85)) && (eventLoc.offsetLeft === pilot.x - 25)) || //immediately south
+        ((eventLoc.offsetTop === (pilot.y - 25 )-85) && (eventLoc.offsetLeft === pilot.x - 25)) || //north
+        ((eventLoc.offsetLeft === (pilot.x - 25 )-85) && (eventLoc.offsetTop === pilot.y-25)) || //west
+        ((eventLoc.offsetLeft === (pilot.x - 25 )-85) && (eventLoc.offsetTop === pilot.y-25)) || // east
+        ((eventLoc.offsetTop === (pilot.y - 25)) && (eventLoc.offsetLeft === pilot.x - 25))){ //tile their on
+            document.getElementById(id).classList.remove('flooded');
+            document.getElementById(id).style.opacity = '100%';
+            document.getElementById(id).removeEventListener('click', unflood);
+            
+            //switch locations from flooded = true to flooded = false
+            for(let i = 0; i<combinedLocations.length; i++){
+                for(let j = 0; j < combinedLocations[i].length; j++){
+                    if(combinedLocations[i][j].id = id){
+                        combinedLocations[i][j].flooded = false
+                    } else{
+                        return;
+                        }
+                    }
+                }
+        } else{
+            console.log('Nope');
+            return;
     }
-
 }
 
 //Draw cards
@@ -251,7 +263,32 @@ const drawCards = () => {
     floodHolding.push(locations.splice(0,waterLevelArray[waterLevelIndex]));
     } else {
         //otherwise, push 2 cards into the player hand
-        playerHand.push(treasureDeck.splice(0,2));
+        playerHandHold.push(treasureDeck[0], treasureDeck[1]);
+        treasureDeck.shift();
+        treasureDeck.shift();
+        //if playerHandHold contains 'waters rise
+            //increase waters rise array by 1
+            //send waters rise to treasure discard
+                //treasureDiscard.push(the waters rise card;
+            //send non-waters rise card to player hand
+                //playerHand.push(the remaining card);
+            //shuffle the flood discard deck    
+                //shuffleDeck(floodDiscard)
+            //push the flood discard deck to the top of the flood deck
+                //floodDeck.push(for(let i = 0; i<floodDiscard.length; i++){floodDiscard[i]};)
+            //clear the flood discard deck
+                //floodDiscard = [];
+            //clear the player hand hold array
+                //playerHandHold = [];
+    }
+}
+
+//update x and y values for locations
+
+const updateXAndY = () =>{
+    for(let i = 0; i < locations.length; i++){
+        locations[i].x = document.getElementById(locations[i].id).offsetLeft;
+        locations[i].y = document.getElementById(locations[i].id).offsetTop;
     }
 }
 
@@ -271,12 +308,14 @@ const randomTiles = () =>{
 const gameSetup = () =>{
     //randomly generate board
     randomTiles();
+    //update the x and y value of the locations;
+    updateXAndY();
     //randomly flood 6 tiles
     flood();
     //shuffle treasure cards
     /*shuffleDeck(treasureDeck);
     //two treasure cards to the player
-    drawCards();
+    drawCards();? might need to do a different idea.
     //push watersrise into treasure deck
     treasureDeck.push(watersRiseDeck);
     treasureDeck.push(watersRiseDeck);
@@ -290,16 +329,7 @@ const gameSetup = () =>{
 
 gameSetup();
 
-//update x and y values for locations
 
-const updateXAndY = () =>{
-    for(let i = 0; i < locations.length; i++){
-        locations[i].x = document.getElementById(locations[i].id).offsetLeft;
-        locations[i].y = document.getElementById(locations[i].id).offsetTop;
-    }
-}
-
-updateXAndY();
 
 //update Pilot X and Y to be on top of Fools Landing
 
@@ -311,3 +341,15 @@ const playerXAndY = () =>{
 }
 
 playerXAndY();
+
+//player turn 
+
+const playerTurn = () =>{
+    //if player.x or player.y changes, push 'movement' to playerActions
+    //if player unfloods tile, push 'shore up' to player actions
+    //if player exchanges cards for a treasure, push 'exchange' to playerActions
+    //if playerActions.length = 3, then 
+    //drawCard()
+}
+
+//if draw deck is empty
