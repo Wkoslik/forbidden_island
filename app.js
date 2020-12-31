@@ -52,7 +52,7 @@ let floodDiscard = [];
 let treasuresDiscard = [];
 var pilot = {
     x: 387,
-    y: 127,
+    y: 126,
     element: document.getElementById("pilot")
 }
 let floodHolding;
@@ -118,33 +118,33 @@ const shuffleDeck = (deck) =>{
 //movement with board game boundaries
 
 const movementHandler = (e) => {
-    if ((pilot.x === 387 && pilot.y === 127 && e.key === 'w') || 
-    (pilot.x === 302 && pilot.y === 42 && e.key === 'w') ||
-    (pilot.x === 217 && pilot.y === 42 && e.key === 'w') ||
-    (pilot.x === 132 && pilot.y === 127 && e.key === 'w')  ||
-    (pilot.x === 47 && pilot.y === 212 && e.key === 'w') ||
-    (pilot.x === 472 && pilot.y === 212 && e.key === 'w')) {
+    if ((pilot.x === 387 && pilot.y === 126 && e.key === 'w') || 
+    (pilot.x === 302 && pilot.y === 41 && e.key === 'w') ||
+    (pilot.x === 217 && pilot.y === 41 && e.key === 'w') ||
+    (pilot.x === 132 && pilot.y === 126 && e.key === 'w')  ||
+    (pilot.x === 47 && pilot.y === 211 && e.key === 'w') ||
+    (pilot.x === 472 && pilot.y === 211 && e.key === 'w')) {
         alert("You can't move further North. Try a different direction.")
-    } else if ((pilot.x === 472 && pilot.y === 297 && e.key === 's') || 
-    (pilot.x === 387 && pilot.y === 382 && e.key === 's') ||
-    (pilot.x === 302 && pilot.y === 467 && e.key === 's') ||
-    (pilot.x === 217 && pilot.y === 467 && e.key === 's')  ||
-    (pilot.x === 132 && pilot.y === 382 && e.key === 's') ||
-    (pilot.x === 47 && pilot.y === 297 && e.key === 's')) {
+    } else if ((pilot.x === 472 && pilot.y === 296 && e.key === 's') || 
+    (pilot.x === 387 && pilot.y === 381 && e.key === 's') ||
+    (pilot.x === 302 && pilot.y === 466 && e.key === 's') ||
+    (pilot.x === 217 && pilot.y === 466 && e.key === 's')  ||
+    (pilot.x === 132 && pilot.y === 381 && e.key === 's') ||
+    (pilot.x === 47 && pilot.y === 296 && e.key === 's')) {
         alert("You can't move further South. Try a different direction.")
-    } else if ((pilot.x === 217 && pilot.y === 42 && e.key === 'a') || 
-    (pilot.x === 132 && pilot.y === 127 && e.key === 'a') ||
-    (pilot.x === 47 && pilot.y === 212 && e.key === 'a') ||
-    (pilot.x === 47 && pilot.y === 297 && e.key === 'a')  ||
-    (pilot.x === 132 && pilot.y === 382 && e.key === 'a') ||
-    (pilot.x === 217 && pilot.y === 467 && e.key === 'a')) {
+    } else if ((pilot.x === 217 && pilot.y === 41 && e.key === 'a') || 
+    (pilot.x === 132 && pilot.y === 126 && e.key === 'a') ||
+    (pilot.x === 47 && pilot.y === 211 && e.key === 'a') ||
+    (pilot.x === 47 && pilot.y === 296 && e.key === 'a')  ||
+    (pilot.x === 132 && pilot.y === 381 && e.key === 'a') ||
+    (pilot.x === 217 && pilot.y === 466 && e.key === 'a')) {
         alert("You can't move further West. Try a different direction.")
-    } else if ((pilot.x === 302 && pilot.y === 42 && e.key === 'd') || 
-    (pilot.x === 387 && pilot.y === 127 && e.key === 'd') ||
-    (pilot.x === 472 && pilot.y === 212 && e.key === 'd') ||
-    (pilot.x === 472 && pilot.y === 297 && e.key === 'd')  ||
-    (pilot.x === 387 && pilot.y === 382 && e.key === 'd') ||
-    (pilot.x === 302 && pilot.y === 467 && e.key === 'd')) {
+    } else if ((pilot.x === 302 && pilot.y === 41 && e.key === 'd') || 
+    (pilot.x === 387 && pilot.y === 126 && e.key === 'd') ||
+    (pilot.x === 472 && pilot.y === 211 && e.key === 'd') ||
+    (pilot.x === 472 && pilot.y === 296 && e.key === 'd')  ||
+    (pilot.x === 387 && pilot.y === 381 && e.key === 'd') ||
+    (pilot.x === 302 && pilot.y === 466 && e.key === 'd')) {
         alert("You can't move further East. Try a different direction.")
     } else if (e.key === 'w'){
         pilot.element.style.top = (pilot.y -= movement) + 'px';
@@ -225,10 +225,12 @@ const unflood = (e) =>{
     let id = e.srcElement.id;
     var combinedLocations = [locations, floodDiscard];
 
+   // if()
     document.getElementById(id).classList.remove('flooded');
     document.getElementById(id).style.opacity = '100%';
     document.getElementById(id).removeEventListener('click', unflood);
     
+    //switch locations from flooded = true to flooded = false
     for(let i = 0; i<combinedLocations.length; i++){
         for(let j = 0; j < combinedLocations[i].length; j++){
             if(combinedLocations[i][j].id = id){
@@ -299,8 +301,13 @@ const updateXAndY = () =>{
 
 updateXAndY();
 
-//bronzeGate.x = document.getElementById('bronzegate').offsetLeft;
-//bronzeGate.y = document.getElementById('bronzegate').offsetTop;
+//update Pilot X and Y to be on top of Fools Landing
 
-console.log(bronzeGate);
-//console.log(document.getElementById('bronzegate').offsetLeft, document.getElementById('bronzegate').offsetTop)
+const playerXAndY = () =>{
+    document.getElementById('pilot').style.left = (foolsLanding.x + 37.5 - 12.5) + 'px';
+    document.getElementById('pilot').style.top = (foolsLanding.y + 37.5 - 12.5) + 'px';
+    pilot.x = foolsLanding.x + 37.5 - 12.5;
+    pilot.y = foolsLanding.y + 37.5 - 12.5;
+}
+
+playerXAndY();
