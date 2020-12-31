@@ -40,17 +40,17 @@ The game alternates between the player turn and the "island" turn.
 - [ ] don't have to go to a specific tile to exchange treasure cards
 
 ## MVP
-- [ ] Have a water level tracker
-- [ ] Have player be able to move
+- [X] Have a water level tracker
+- [X] Have player be able to move
 - [ ] Have a treasure card draw & discard pile
 - [ ] Have a flood card draw & discard pile
-- [ ] Have a player hand (hand limit: 5)
+- [] Have a player hand (hand limit: 5)
 - [ ] Exchange Treasure cards for A treasure
 - [ ] Game Ends when treasure card is obtained & Player "flies" off the island OR when water level tracker gets to 'dead'
 - [ ] Have treasure indicator
 
 * ## V1
-    - [ ] Increase Number of treasures to collec to 2
+    - [ ] Increase Number of treasures to collect to 2
     - [ ] Add Tile and Deck Imagery (Flood deck imagery and Tile imagery are the same).
     - [ ] Select Difficulty Level (Water Level Tracker)
 

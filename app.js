@@ -65,8 +65,8 @@ function CreateLocations(locName, id){
     this.id = id,
     this.flooded = false,
     this.sunk = false,
-    this.width = '75px',
-    this.height = '75px'
+    this.width = 75,
+    this.height = 75, 
     this.pushToLocations = function() {
         locations.push(this);
     }
@@ -272,10 +272,35 @@ const gameSetup = () =>{
     //randomly flood 6 tiles
     flood();
     //shuffle treasure cards
+    /*shuffleDeck(treasureDeck);
     //two treasure cards to the player
+    drawCards();
     //push watersrise into treasure deck
-    //shuffle treasuredeck
+    treasureDeck.push(watersRiseDeck);
+    treasureDeck.push(watersRiseDeck);
+    treasureDeck.push(watersRiseDeck);
+    //shuffle treasuredeck(three times for good measure)
+    shuffleDeck(treasureDeck);
+    shuffleDeck(treasureDeck);
+    shuffleDeck(treasureDeck);*/
 }
 
 
 gameSetup();
+
+//update x and y values for locations
+
+const updateXAndY = () =>{
+    for(let i = 0; i < locations.length; i++){
+        locations[i].x = document.getElementById(locations[i].id).offsetLeft;
+        locations[i].y = document.getElementById(locations[i].id).offsetTop;
+    }
+}
+
+updateXAndY();
+
+//bronzeGate.x = document.getElementById('bronzegate').offsetLeft;
+//bronzeGate.y = document.getElementById('bronzegate').offsetTop;
+
+console.log(bronzeGate);
+//console.log(document.getElementById('bronzegate').offsetLeft, document.getElementById('bronzegate').offsetTop)
