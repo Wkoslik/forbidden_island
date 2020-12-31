@@ -306,3 +306,38 @@ progress{
 .flooded{
     background-color: rgba(34, 167, 240, .5);
 }
+
+#treasures{
+    display:flex;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 20%;
+}
+
+#chalicetreasure, #liontreasure,
+#firetreasure, #earthtreasure{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 45%;
+    height: 45%;
+    margin: 1px;
+    display: none;
+}
+
+#chalicetreasure{
+    background-image: url('./imgs/treasure/chalicetreasure.png');
+    
+}
+
+#liontreasure{
+    background-image: url('./imgs/treasure/liontreasure.png');
+}
+
+#firetreasure{
+    background-image: url('./imgs/treasure/firetreasure.png');
+}
+
+#earthtreasure{
+    background-image: url('./imgs/treasure/globetreasure.png');
+}
