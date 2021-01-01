@@ -47,13 +47,14 @@ aside{
 
 #secondRow{
     height: 30%;
+    margin-top: 16px;
 }
 #decks{
     border: 1px solid red;
     width: 250px;
 }
 
-#treasuredraw, #treasurediscard, #flooddraw, #flooddiscard{
+#treasuredraw, #flooddraw{
     height: 124.6px;
     width: 173px;
     border: 1px dotted black;
@@ -64,6 +65,14 @@ aside{
     color: white;
     line-height: 124.6px;
 
+}
+
+#treasurediscard, #flooddiscard{
+    width: 124.6px;
+    height: 173px;
+    border: 1px dotted black;
+    margin: -25px auto auto 27px;
+    transform: rotate(90deg);
 }
 
 .title{
@@ -307,11 +316,28 @@ progress{
     background-color: rgba(34, 167, 240, .5);
 }
 
+#playerhand{
+    display: flex;
+}
+
+#treasurehand{
+    display:flex;
+    margin-left: 10px;
+}
+.playerhandtreasurecards{
+    width: 124.6px;
+    height: 173px;
+    border: 1px dotted black;
+    margin: 4px;
+}
+
 #treasures{
     display:flex;
     flex-wrap: wrap;
-    height: 100%;
     width: 20%;
+    visibility: hidden;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 #chalicetreasure, #liontreasure,
@@ -322,7 +348,6 @@ progress{
     width: 45%;
     height: 45%;
     margin: 1px;
-    display: none;
 }
 
 #chalicetreasure{
@@ -340,4 +365,39 @@ progress{
 
 #earthtreasure{
     background-image: url('./imgs/treasure/globetreasure.png');
+}
+
+.sandbag{
+    background-image: url('./imgs/treasure/sandbag.png');
+    background-size: cover;
+}
+
+.helicopterlift{
+    background-image: url('./imgs/treasure/helicopter_lift.png');
+    background-size: cover;
+}
+
+.earth{
+    background-image: url('./imgs/treasure/globe.png');
+    background-size: cover;
+}
+
+.water{
+    background-image: url('./imgs/treasure/chalice.png');
+    background-size: cover;
+}
+
+.fire{
+    background-image: url('./imgs/treasure/fire.png');
+    background-size: cover;
+}
+
+.air{
+    background-image: url('./imgs/treasure/lion.png');
+    background-size: cover;
+}
+
+.watersrise{
+    background-image: url('./imgs/treasure/waters_rise.png');
+    background-size: cover;
 }
