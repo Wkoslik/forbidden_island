@@ -64,6 +64,7 @@ let playerHandHold = [];
 function CreateLocations(locName, id){
     this.name = locName,
     this.id = id,
+    this.className = id,
     this.flooded = false,
     this.sunk = false,
     this.width = 75,
@@ -285,7 +286,6 @@ const flood = () =>{
     if (islandTurn === true){
         //draw cards
         drawCards();
-        console.log(floodHolding);
         for(let i = 0; i < floodHolding.length; i++){
             //if the island cards pulled are already flooded
             if(floodHolding[i].flooded === true){
@@ -297,7 +297,6 @@ const flood = () =>{
                 document.getElementById(floodHolding[i].id).style.backgroundColor = 'blue';
                 //push the location to the sunkLocations hand
                 sunkLocations.push(floodHolding[i]);
-                //remove from floodHolding
             } else { //otherwise
                 //switch flooded to true
                 floodHolding[i].flooded = true;
@@ -309,13 +308,29 @@ const flood = () =>{
                 document.getElementById(floodHolding[i].id).addEventListener('click', unflood());
                 //push from floodHolding into flood discard
                 floodDiscard.push(floodHolding[i]);
-                //remove from flood holding
+                //remove previous class
+                if(i === floodHolding.length -1){
+                document.getElementById('treasurediscard').classList = '';
+                document.getElementById('treasurediscard').classList.add(floodHolding[i].className);
+            }
             }
         }
+        floodHolding = [];
         islandTurn = false;
+    //if not the island turn (GAME SET UP)
     } else {
+        //shuffle locations deck
         shuffleDeck(locations);
-        floodHolding = locations.splice(0,6);
+
+        //move first 6 locations into flood holding
+        for(let j = 0; j < 6; j++){
+            floodHolding.push(locations[j])
+        }
+
+        //remove the first 6 locations from the locations deck
+        locations.slice(0,6);
+
+        //loop through flood holding to flood tiles
         for(let i = 0; i < 6; i++){
             //switch flooded to true
             floodHolding[i].flooded = true;
@@ -327,6 +342,10 @@ const flood = () =>{
             document.getElementById(floodHolding[i].id).addEventListener('click', unflood);
             //push from floodHolding into flood discard
             floodDiscard.push(floodHolding[i]);
+            if(i === 5){
+                document.getElementById('flooddiscard').classList.add(floodHolding[i].className);
+            }
+
         }
     }
     floodHolding.length = 0;
@@ -365,8 +384,6 @@ const unflood = (e) =>{
             return;
     }
 }
-
-
 
 
 //Draw cards
@@ -413,9 +430,7 @@ const gameSetup = () =>{
     //randomly flood 6 tiles
     flood();
     //shuffle treasure cards
-    console.log(treasureDeck);
     shuffleDeck(treasureDeck);
-    console.log(treasureDeck);
     //two treasure cards to the player
     drawCards()
     //push watersrise into treasure deck
@@ -455,11 +470,6 @@ const playerTurn = () =>{
 
 //if draw deck is empty
 
-const emptyDeck = (deck, draw) => {
-    if (deck.length < draw){
-
-    }
-}
 
 
 
@@ -469,10 +479,11 @@ const emptyDeck = (deck, draw) => {
 //exchange treasure card button
     //if on the right tile && has 4 of the same card
 //treasuresCollected = 0;
-//treasure icon? 
 //treasures to collect
 //if waters rise, then waters rise index ++
 //win condition
     //fly away button
 //lose condition
 //helper text
+//sandbag functionality
+//helicopter lift functionality

@@ -405,3 +405,123 @@ progress{
 .watersrise{
     background-image: url('./imgs/treasure/waters_rise.png');
 }
+
+.howlinggarden{
+    background-image: url('./imgs/flood_deck/howling_garden.png');
+    background-size: contain;
+}
+
+.lostlagoon{
+    background-image: url('./imgs/flood_deck/lost_lagoon.png');
+    background-size: contain;
+}
+
+.caveofshadows{
+    background-image: url('./imgs/flood_deck/cave_of_shadows.png');
+    background-size: contain;
+}
+
+.phantomrock{
+    background-image: url('./imgs/flood_deck/phantom_rock.png');
+    background-size: contain;
+}
+
+.silvergate{
+    background-image: url('./imgs/flood_deck/silver_gate.png');
+    background-size: contain;
+}
+
+.templeofthesun{
+    background-image: url('./imgs/flood_deck/temple_of_the_sun.png');
+    background-size: contain;
+}
+
+.watchtower{
+    background-image: url('./imgs/flood_deck/watchtower.png');
+    background-size: contain;
+}
+
+.irongate{
+    background-image: url('./imgs/flood_deck/iron_gate.png');
+    background-size: contain;
+}
+
+.foolslanding{
+    background-image: url('./imgs/flood_deck/fools_landing.png');
+    background-size: contain;
+}
+
+.coppergate{
+    background-image: url('./imgs/flood_deck/copper_gate.png');
+    background-size: contain;
+}
+
+.coralpalace{
+    background-image: url('./imgs/flood_deck/coral_palace.png');
+    background-size: contain;
+}
+
+.dunesofdeception{
+    background-image: url('./imgs/flood_deck/dunes_of_deception.png');
+    background-size: contain;
+}
+
+.goldgate{
+    background-image: url('./imgs/flood_deck/gold_gate.png');
+    background-size: contain;
+}
+
+.bronzegate{
+    background-image: url('./imgs/flood_deck/bronze_gate.png');
+    background-size: contain;
+}
+
+.crimsonforest{
+    background-image: url('./imgs/flood_deck/crimson_forest.png');
+    background-size: contain;
+}
+
+.observatory{
+    background-image: url('./imgs/flood_deck/observatory.png');
+    background-size: contain;
+}
+
+.tidalpalace{
+    background-image: url('./imgs/flood_deck/tidal_palace.png');
+    background-size: contain;
+}
+
+.whisperinggarden{
+    background-image: url('./imgs/flood_deck/whispering_garden.png');
+    background-size: contain;
+}
+
+.templeofthemoon{
+    background-image: url('./imgs/flood_deck/temple_of_the_moon.png');
+    background-size: contain;
+}
+
+.mistymarsh{
+    background-image: url('./imgs/flood_deck/misty_marsh.png');
+    background-size: contain;
+}
+
+.twilighthollow{
+    background-image: url('./imgs/flood_deck/twilight_hollow.png');
+    background-size: contain;
+}
+
+.caveofembers{
+    background-image: url('./imgs/flood_deck/cave_of_embers.png');
+    background-size: contain;
+}
+
+.cliffsofabandon{
+    background-image: url('./imgs/flood_deck/cliffs_of_abandon.png');
+    background-size: contain;
+}
+
+.breakersbridge{
+    background-image: url('./imgs/flood_deck/breakers_bridge.png');
+    background-size: contain;
+}
