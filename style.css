@@ -352,7 +352,6 @@ progress{
 
 #chalicetreasure{
     background-image: url('./imgs/treasure/chalicetreasure.png');
-    
 }
 
 #liontreasure{
@@ -367,37 +366,42 @@ progress{
     background-image: url('./imgs/treasure/globetreasure.png');
 }
 
+
+.sandbag, .helicopterlift, .earth, .fire, .water, .air, .watersrise{
+    background-size: cover;
+    width: 124.6px;
+    height: 173px;
+    border: 1px dotted black;
+    margin: 4px;
+}
 .sandbag{
     background-image: url('./imgs/treasure/sandbag.png');
-    background-size: cover;
 }
 
 .helicopterlift{
     background-image: url('./imgs/treasure/helicopter_lift.png');
-    background-size: cover;
+
 }
 
 .earth{
     background-image: url('./imgs/treasure/globe.png');
-    background-size: cover;
+
 }
 
 .water{
     background-image: url('./imgs/treasure/chalice.png');
-    background-size: cover;
+
 }
 
 .fire{
     background-image: url('./imgs/treasure/fire.png');
-    background-size: cover;
+
 }
 
 .air{
     background-image: url('./imgs/treasure/lion.png');
-    background-size: cover;
 }
 
 .watersrise{
     background-image: url('./imgs/treasure/waters_rise.png');
-    background-size: cover;
 }

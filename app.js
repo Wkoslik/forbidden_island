@@ -38,25 +38,21 @@ let movement = 85;
 //setting up game variables
 let waterLevelArray = [2, 2, 3, 3, 3, 4, 4, 5, 5, 6];
 let playerHand = [];
-let treasureDeck = ['Sandbags', 'Sandbags',
-                'Helicopter Lift', 'Helicopter Lift', 'Helicopter Lift', 
-                'Earth', 'Earth', 'Earth', 'Earth', 'Earth',
-                'Water', 'Water', 'Water', 'Water', 'Water',
-                'Fire', 'Fire', 'Fire', 'Fire', 'Fire', 
-                'Air', 'Air', 'Air', 'Air', 'Air'];
-let watersRiseDeck = ['Waters Rise!', 'Waters Rise!', 'Waters Rise!'];
+let treasureDeck = [];
+let watersRiseDeck = [];
 let islandTurn = false;
 let waterLevelIndex = 0;
 let playerDraw = 2;
 let floodDiscard = [];
 let treasuresDiscard = [];
+let treasureDiscardDOM = document.getElementById('treasurediscard');
 var pilot = {
     x: 387,
     y: 126,
     element: document.getElementById("pilot"),
-    hand: [];
+    hand: []
 }
-let floodHolding;
+let floodHolding = [];
 let sunkLocations = [];
 let locations = [];
 let playerActions = [];
@@ -117,29 +113,29 @@ function CreateTreasuresDeck(cardName, id){
 }
 
 //render treasure deck
-let chalice1 = new CreateTreasuresDeck('chalice', 'chalicetreasure');
-let chalice2 = new CreateTreasuresDeck('chalice', 'chalicetreasure');
-let chalice3 = new CreateTreasuresDeck('chalice', 'chalicetreasure');
-let chalice4 = new CreateTreasuresDeck('chalice', 'chalicetreasure');
-let chalice5 = new CreateTreasuresDeck('chalice', 'chalicetreasure');
+let chalice1 = new CreateTreasuresDeck('chalice', 'water');
+let chalice2 = new CreateTreasuresDeck('chalice', 'water');
+let chalice3 = new CreateTreasuresDeck('chalice', 'water');
+let chalice4 = new CreateTreasuresDeck('chalice', 'water');
+let chalice5 = new CreateTreasuresDeck('chalice', 'water');
 
-let lion1 = new CreateTreasuresDeck('lion', 'liontreasure');
-let lion2 = new CreateTreasuresDeck('lion', 'liontreasure');
-let lion3 = new CreateTreasuresDeck('lion', 'liontreasure');
-let lion4 = new CreateTreasuresDeck('lion', 'liontreasure');
-let lion5 = new CreateTreasuresDeck('lion', 'liontreasure');
+let lion1 = new CreateTreasuresDeck('lion', 'air');
+let lion2 = new CreateTreasuresDeck('lion', 'air');
+let lion3 = new CreateTreasuresDeck('lion', 'air');
+let lion4 = new CreateTreasuresDeck('lion', 'air');
+let lion5 = new CreateTreasuresDeck('lion', 'air');
 
-let fire1 = new CreateTreasuresDeck('fire', 'firetreasure');
-let fire2 = new CreateTreasuresDeck('fire', 'firetreasure');
-let fire3 = new CreateTreasuresDeck('fire', 'firetreasure');
-let fire4 = new CreateTreasuresDeck('fire', 'firetreasure');
-let fire5 = new CreateTreasuresDeck('fire', 'firetreasure');
+let fire1 = new CreateTreasuresDeck('fire', 'fire');
+let fire2 = new CreateTreasuresDeck('fire', 'fire');
+let fire3 = new CreateTreasuresDeck('fire', 'fire');
+let fire4 = new CreateTreasuresDeck('fire', 'fire');
+let fire5 = new CreateTreasuresDeck('fire', 'fire');
 
-let earth1 = new CreateTreasuresDeck('earth', 'earthtreasure');
-let earth2 = new CreateTreasuresDeck('earth', 'earthtreasure');
-let earth3 = new CreateTreasuresDeck('earth', 'earthtreasure');
-let earth4 = new CreateTreasuresDeck('earth', 'earthtreasure');
-let earth5 = new CreateTreasuresDeck('earth', 'earthtreasure');
+let earth1 = new CreateTreasuresDeck('earth', 'earth');
+let earth2 = new CreateTreasuresDeck('earth', 'earth');
+let earth3 = new CreateTreasuresDeck('earth', 'earth');
+let earth4 = new CreateTreasuresDeck('earth', 'earth');
+let earth5 = new CreateTreasuresDeck('earth', 'earth');
 
 let sandbag1 = new CreateTreasuresDeck('sandbag', 'sandbag');
 let sandbag2 = new CreateTreasuresDeck('sandbag', 'sandbag');
@@ -148,21 +144,87 @@ let helicopterLift1 = new CreateTreasuresDeck('helicoper lift', 'helicopterlift'
 let helicopterLift2 = new CreateTreasuresDeck('helicoper lift', 'helicopterlift');
 let helicopterLift3 = new CreateTreasuresDeck('helicoper lift', 'helicopterlift');
 
-//Shuffle Deck
-const shuffleDeck = (deck) =>{
-    let currentIndex = deck.length, tempValue, randomIndex;
+//CreateWatersRise Constructor
+//This creates the treasures deck
+function CreateWatersRise(cardName, id){
+    this.name = cardName,
+    this.className = id,
+    this.pushToWatersRiseDeck = function() {
+        watersRiseDeck.push(this);
+    }
+    this.pushToWatersRiseDeck();
+}
+let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
 
-    while (0 !== currentIndex){
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
+/* HELPER FUNCTIONS */
 
-        tempValue = deck[currentIndex];
-        deck[currentIndex] = deck[randomIndex];
-        deck[randomIndex] = tempValue;
+    //Shuffle Deck
+    const shuffleDeck = (deck) =>{
+        let currentIndex = deck.length, tempValue, randomIndex;
+
+        while (0 !== currentIndex){
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            tempValue = deck[currentIndex];
+            deck[currentIndex] = deck[randomIndex];
+            deck[randomIndex] = tempValue;
+        }
+
+        return deck;
+
     }
 
-    return deck;
+    const treasureDeckDraw = () =>{
+        //push 2 cards into the playerhandhold array
+        playerHandHold.push(treasureDeck[0], treasureDeck[1]);
+        //remove first two cards from 
+        treasureDeck.shift();
+        treasureDeck.shift();
+    
+        for(let i = 0; i < 2; i++){
+            if(playerHandHold[i].className === 'watersrise'){
+                //increase waterlevel index 
+                waterLevelIndex++;
+                console.log(waterLevelIndex);
+                //move waters rise card to treasure discard
+                treasuresDiscard.unshift(playerHandHold[i]);
+                //remove previous classname from div
+                treasureDiscardDOM.classList = '';
+                //add new class name
+                treasureDiscardDOM.classList.add('watersrise');
+                //shuffle flood discard
+                if(floodDiscard.length > 0){
+                    shuffleDeck(floodDiscard);
+                    //add flood discard to front of flood pile
+                    for(let i = 0; i < floodDiscard.length; i++){
+                        locations.unshift(floodDiscard[i]);
+                } 
+                };
+                //empty flood discard
+                floodDiscard = [];
+            } else{
+                //push card to player hand
+                pilot.hand.push(playerHandHold[i]);
+                //create a new div
+                let newDiv = document.createElement('div');
+                //add class name to new div
+                newDiv.classList.add(playerHandHold[i].className);
+                //add newDiv to treasurehand div
+                document.getElementById('treasurehand').appendChild(newDiv);
+            }
+        }
+    }
 
+    //draw flood cards
+
+const drawFloodCards = () =>{
+    //push locations we're flooding into the flood holding array.
+    for (let i = 0; i < waterLevelArray[waterLevelIndex]; i ++){
+        floodHolding.push(locations[i]);
+    }
+    //remove locations from teh locations array.
+    locations.splice(0, waterLevelArray[waterLevelIndex]);
 }
 
 //movement with board game boundaries
@@ -214,6 +276,7 @@ const movementHandler = (e) => {
 }
 
 document.addEventListener('keydown', movementHandler);
+
 
 //flood
 
@@ -303,53 +366,22 @@ const unflood = (e) =>{
     }
 }
 
+
+
+
 //Draw cards
 const drawCards = () => {
     //if it's the island's turn
     if(islandTurn === true){
         //push number of cards equal to water level array into flood holding
-    floodHolding.push(locations.splice(0,waterLevelArray[waterLevelIndex]));
+        drawFloodCards();
     } else {
-        //otherwise, push 2 cards into the playerhandhold array
-        playerHandHold.push(treasureDeck[0], treasureDeck[1]);
-        //remove first two cards from 
-        treasureDeck.shift();
-        treasureDeck.shift();
-
-        //if playerhandhold contains waters rise
-        for(let i = 0; i < 2; i++){
-            if(playerHandHold[i].className === 'watersrise'){
-                //increase waterlevel index 
-                waterLevelIndex++
-                //move waters rise card to treasure discard
-                treasuresDiscard.unshift(playerHandHold[i]);
-                //remove previous classname from div
-                document.getElementById('treasurediscard').classList = '';
-                //add new class name
-                document.getElementById('treasuresdiscard').classList.add = 'watersrise';
-                //shuffle flood discard
-                shuffleDeck(floodDiscard);
-                //add flood discard to front of flood pile
-                for(let i = 0; i < floodDiscard.length; i++){
-                    locations.unshift(floodDiscard[i]);
-                }
-                //empty flood discard
-                floodDiscard = [];
-            } else{
-                //push card to player hand
-                pilot.hand.push(playerHandHold[i]);
-                //create a new div
-                let newDiv = document.createElement('div');
-                //add class name to new div
-                newDiv.classList.add(playerHandHold[i].className);
-                //add newDiv to treasurehand div
-                document.getElementById('treasurehand').appendChild(newDiv);
-            }
+            treasureDeckDraw();
             //empty playerHandHold
             playerHandHold = [];
         }
     }
-}
+
 
 //update x and y values for locations
 
@@ -381,23 +413,24 @@ const gameSetup = () =>{
     //randomly flood 6 tiles
     flood();
     //shuffle treasure cards
-    /*shuffleDeck(treasureDeck);
+    console.log(treasureDeck);
+    shuffleDeck(treasureDeck);
+    console.log(treasureDeck);
     //two treasure cards to the player
-    drawCards();? might need to do a different idea.
+    drawCards()
     //push watersrise into treasure deck
-    treasureDeck.push(watersRiseDeck);
-    treasureDeck.push(watersRiseDeck);
-    treasureDeck.push(watersRiseDeck);
+    treasureDeck.push(watersRiseDeck[0]);
+    treasureDeck.push(watersRiseDeck[0]);
+    treasureDeck.push(watersRiseDeck[0]);
     //shuffle treasuredeck(three times for good measure)
     shuffleDeck(treasureDeck);
     shuffleDeck(treasureDeck);
-    shuffleDeck(treasureDeck);*/
+    shuffleDeck(treasureDeck);
 }
 
 
 gameSetup();
-
-
+//console.log(treasureDeck);
 
 //update Pilot X and Y to be on top of Fools Landing
 
