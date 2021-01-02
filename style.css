@@ -37,7 +37,6 @@ aside{
 
 #board{
     width: 1000px;
-    border: 1px solid black;    
 }
 
 #firstRow{
@@ -50,7 +49,6 @@ aside{
     margin-top: 16px;
 }
 #decks{
-    border: 1px solid red;
     width: 250px;
 }
 
@@ -90,7 +88,6 @@ aside{
 }
 
 #game{
-    border: 1px solid greenyellow;
     width: 540px;
     height: 540px;
     position: relative;
@@ -524,4 +521,27 @@ progress{
 .breakersbridge{
     background-image: url('./imgs/flood_deck/breakers_bridge.png');
     background-size: contain;
+}
+
+#endturn{
+    padding: 22px;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+.button{
+    display: flex;
+    visibility: hidden;
+}
+
+#endturn:hover{
+    cursor: pointer;
+    background-color: red;
+    transition: 750ms ease;
+}
+
+#playeractions{
+    font-size: 22px;
+    line-height: 63px;
+    margin: 0 auto;
 }

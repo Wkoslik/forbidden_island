@@ -55,8 +55,10 @@ var pilot = {
 let floodHolding = [];
 let sunkLocations = [];
 let locations = [];
-let playerActions = [];
+let playerActions = 0;
 let playerHandHold = [];
+let progressBar = document.getElementById('progressbar');
+let progressBarValue = 5;
 
 
 //Create Locations constructor -- 
@@ -187,7 +189,13 @@ let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
             if(playerHandHold[i].className === 'watersrise'){
                 //increase waterlevel index 
                 waterLevelIndex++;
-                console.log(waterLevelIndex);
+                //increase progress bar
+                if(progressBarValue === 85){
+                    progressBarValue += 15;
+                } else {
+                    progressBarValue += 10;
+                }
+                progressBar.value = progressBarValue;
                 //move waters rise card to treasure discard
                 treasuresDiscard.unshift(playerHandHold[i]);
                 //remove previous classname from div
@@ -215,6 +223,8 @@ let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
                 document.getElementById('treasurehand').appendChild(newDiv);
             }
         }
+    //empty playerHandHold
+    playerHandHold = [];
     }
 
     //draw flood cards
@@ -224,7 +234,7 @@ const drawFloodCards = () =>{
     for (let i = 0; i < waterLevelArray[waterLevelIndex]; i ++){
         floodHolding.push(locations[i]);
     }
-    //remove locations from teh locations array.
+    //remove locations from the locations array.
     locations.splice(0, waterLevelArray[waterLevelIndex]);
 }
 
@@ -261,15 +271,19 @@ const movementHandler = (e) => {
         alert("You can't move further East. Try a different direction.")
     } else if (e.key === 'w'){
         pilot.element.style.top = (pilot.y -= movement) + 'px';
+        playerActions++;
         console.log(pilot.x, pilot.y);
     } else if (e.key === 'a'){
         pilot.element.style.left = (pilot.x -= movement) + 'px';
+        playerActions++;
         console.log(pilot.x, pilot.y);
     } else if (e.key === 's'){
         pilot.element.style.top =  (pilot.y += movement) + 'px';
+        playerActions++;
         console.log(pilot.x, pilot.y);
     } else if (e.key ==='d'){
         pilot.element.style.left = (pilot.x += movement) + 'px';
+        playerActions++;
         console.log(pilot.x, pilot.y);
     } else{
         alert("That key won't let you move. Try W, A, S, or D.");
@@ -278,14 +292,14 @@ const movementHandler = (e) => {
 
 document.addEventListener('keydown', movementHandler);
 
-
 //flood
 
 const flood = () =>{
     //if it's the islands turn
     if (islandTurn === true){
-        //draw cards
-        drawCards();
+        //draw cards --> push locations we're flooding to teh flood holding array and then remove the locations from the locations array
+        drawFloodCards();
+        //loop through flood holding
         for(let i = 0; i < floodHolding.length; i++){
             //if the island cards pulled are already flooded
             if(floodHolding[i].flooded === true){
@@ -305,13 +319,13 @@ const flood = () =>{
                 //add the class 'flooded'
                 document.getElementById(floodHolding[i].id).classList.add = 'flooded';
                 //add an event listener to unflood
-                document.getElementById(floodHolding[i].id).addEventListener('click', unflood());
+                document.getElementById(floodHolding[i].id).addEventListener('click', unflood);
                 //push from floodHolding into flood discard
                 floodDiscard.push(floodHolding[i]);
                 //remove previous class
                 if(i === floodHolding.length -1){
-                document.getElementById('treasurediscard').classList = '';
-                document.getElementById('treasurediscard').classList.add(floodHolding[i].className);
+                document.getElementById('flooddiscard').classList = '';
+                document.getElementById('flooddiscard').classList.add(floodHolding[i].className);
             }
             }
         }
@@ -321,15 +335,17 @@ const flood = () =>{
     } else {
         //shuffle locations deck
         shuffleDeck(locations);
-
         //move first 6 locations into flood holding
         for(let j = 0; j < 6; j++){
             floodHolding.push(locations[j])
         }
-
         //remove the first 6 locations from the locations deck
-        locations.slice(0,6);
-
+        locations.shift();
+        locations.shift();
+        locations.shift();
+        locations.shift();
+        locations.shift();
+        locations.shift();
         //loop through flood holding to flood tiles
         for(let i = 0; i < 6; i++){
             //switch flooded to true
@@ -342,7 +358,7 @@ const flood = () =>{
             document.getElementById(floodHolding[i].id).addEventListener('click', unflood);
             //push from floodHolding into flood discard
             floodDiscard.push(floodHolding[i]);
-            if(i === 5){
+                if(i === 5){
                 document.getElementById('flooddiscard').classList.add(floodHolding[i].className);
             }
 
@@ -368,15 +384,16 @@ const unflood = (e) =>{
             document.getElementById(id).classList.remove('flooded');
             document.getElementById(id).style.opacity = '100%';
             document.getElementById(id).removeEventListener('click', unflood);
+            playerActions++;
             
             //switch locations from flooded = true to flooded = false
             for(let i = 0; i<combinedLocations.length; i++){
+                console.log(combinedLocations[i]);
                 for(let j = 0; j < combinedLocations[i].length; j++){
-                    if(combinedLocations[i][j].id = id){
-                        combinedLocations[i][j].flooded = false
-                    } else{
-                        return;
-                        }
+                    if(combinedLocations[i][j].id === id){
+                        console.log('yo')
+                        combinedLocations[i][j].flooded = false;
+                        } 
                     }
                 }
         } else{
@@ -386,18 +403,7 @@ const unflood = (e) =>{
 }
 
 
-//Draw cards
-const drawCards = () => {
-    //if it's the island's turn
-    if(islandTurn === true){
-        //push number of cards equal to water level array into flood holding
-        drawFloodCards();
-    } else {
-            treasureDeckDraw();
-            //empty playerHandHold
-            playerHandHold = [];
-        }
-    }
+
 
 
 //update x and y values for locations
@@ -432,7 +438,7 @@ const gameSetup = () =>{
     //shuffle treasure cards
     shuffleDeck(treasureDeck);
     //two treasure cards to the player
-    drawCards()
+    treasureDeckDraw();
     //push watersrise into treasure deck
     treasureDeck.push(watersRiseDeck[0]);
     treasureDeck.push(watersRiseDeck[0]);
@@ -458,15 +464,35 @@ const playerXAndY = () =>{
 
 playerXAndY();
 
+//prevent clicks if players turn is over
+
+const clickBlock = () => {
+    document.getElementById('game').style.pointerEvents = "none";
+    document.removeEventListener('keydown', movementHandler);
+}
+
+//remove block on clicks and key presses
+
+const removeBlock = () =>{
+    document.addEventListener('keydown', movementHandler);
+    document.getElementById('game').style.pointerEvents = 'auto';
+}
+
 //player turn 
 
 const playerTurn = () =>{
-    //if player.x or player.y changes, push 'movement' to playerActions
-    //if player unfloods tile, push 'shore up' to player actions
-    //if player exchanges cards for a treasure, push 'exchange' to playerActions
-    //if playerActions.length = 3, then 
-    //drawCard()
+    //if playerActions array.length === 3, button to end turn
+    document.getElementById('endturn').style.visibility = 'visible';
+    document.getElementById('endturn').addEventListener('click', endTurn);
+    document.getElementById('playeractions').style.visibility = 'visible';
+    document.getElementById('playeractions').innerText = 'Player Actions: ' + playerActions;
+    if(playerActions === 3){
+        document.getElementById('playeractions').innerText = 'Player Actions: ' + playerActions + " (You've hit your limit! End your turn.)";
+        clickBlock();
+
+    }
 }
+
 
 //if draw deck is empty
 
@@ -484,6 +510,19 @@ const playerTurn = () =>{
 //win condition
     //fly away button
 //lose condition
+const youLose = () => {
+    console.log('You Lost!');
+}
 //helper text
 //sandbag functionality
 //helicopter lift functionality
+
+setInterval(playerTurn, 100);
+
+const endTurn = () => {
+    treasureDeckDraw();
+    islandTurn = true;
+    flood();
+    removeBlock();
+    playerActions = 0;
+}
