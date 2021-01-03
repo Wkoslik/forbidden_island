@@ -332,12 +332,11 @@ progress{
     display:flex;
     flex-wrap: wrap;
     width: 20%;
-    visibility: hidden;
     margin-left: 16px;
     margin-right: 16px;
 }
 
-#chalicetreasure, #liontreasure,
+#watertreasure, #airtreasure,
 #firetreasure, #earthtreasure{
     background-size: contain;
     background-repeat: no-repeat;
@@ -345,13 +344,14 @@ progress{
     width: 45%;
     height: 45%;
     margin: 1px;
+    visibility: hidden;
 }
 
-#chalicetreasure{
+#watertreasure{
     background-image: url('./imgs/treasure/chalicetreasure.png');
 }
 
-#liontreasure{
+#airtreasure{
     background-image: url('./imgs/treasure/liontreasure.png');
 }
 

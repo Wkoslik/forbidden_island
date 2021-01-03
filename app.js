@@ -59,14 +59,21 @@ let playerActions = 0;
 let playerHandHold = [];
 let progressBar = document.getElementById('progressbar');
 let progressBarValue = 5;
+let offset = 25;
+let treasureCount = 0;
+let earthTreasureCollected = false;
+let waterTreasureCollected = false;
+let fireTreasureCollected = false;
+let airTreasureCollected = false;
 
 
 //Create Locations constructor -- 
 //this creates all of the locations on the game board
-function CreateLocations(locName, id){
+function CreateLocations(locName, id, treasure){
     this.name = locName,
     this.id = id,
     this.className = id,
+    this.treasure = treasure,
     this.flooded = false,
     this.sunk = false,
     this.width = 75,
@@ -79,36 +86,40 @@ function CreateLocations(locName, id){
 }
 
 //render locations
-let howlingGarden = new CreateLocations('Howling Garden', 'howlinggarden');
-let lostLagoon = new CreateLocations('Lost Lagoon', 'lostlagoon');
-let caveOfShadows = new CreateLocations('Cave of Shadows', 'caveofshadows');
-let phantomRock = new CreateLocations('Phantom Rock', 'phantomrock');
-let silverGate = new CreateLocations('Silver Gate', 'silvergate');
-let templeOfTheSun = new CreateLocations('Temple of the Sun', 'templeofthesun');
-let watchtower = new CreateLocations('Watchtower', 'watchtower');
-let ironGate = new CreateLocations('Iron Gate', 'irongate');
-let foolsLanding = new CreateLocations('Fools Landing', 'foolslanding');
-let copperGate = new CreateLocations('Copper Gate', 'coppergate');
-let coralPalace = new CreateLocations('Coral Palace', 'coralpalace');
-let dunesOfDeception = new CreateLocations('Dunes of Deception', 'dunesofdeception');
-let goldGate = new CreateLocations('Gold Gate', 'goldgate');
-let bronzeGate = new CreateLocations('Bronze Gate', 'bronzegate');
-let crimsonForest = new CreateLocations('Crimson Forest', 'crimsonforest');
-let observatory = new CreateLocations('Observatory', 'observatory');
-let tidalPalace = new CreateLocations('Tidal Palace', 'tidalpalace');
-let whisperingGarden = new CreateLocations('Whispering Garden', 'whisperinggarden');
-let templeOfTheMoon = new CreateLocations('Temple of the Moon', 'templeofthemoon');
-let mistyMarsh = new CreateLocations('Misty Marsh', 'mistymarsh');
-let twilightHollow = new CreateLocations('Twilight Hollow', 'twilighthollow');
-let caveOfEmbers = new CreateLocations('Cave Of Embers', 'caveofembers');
-let cliffsOfAbandon = new CreateLocations('Cliffs of Abandon', 'cliffsofabandon');
-let breakersBridge = new CreateLocations('Breakers Bridge', 'breakersbridge');
+let howlingGarden = new CreateLocations('Howling Garden', 'howlinggarden', 'airtreasure');
+let lostLagoon = new CreateLocations('Lost Lagoon', 'lostlagoon', '');
+let caveOfShadows = new CreateLocations('Cave of Shadows', 'caveofshadows', 'firetreasure');
+let phantomRock = new CreateLocations('Phantom Rock', 'phantomrock', '');
+let silverGate = new CreateLocations('Silver Gate', 'silvergate', '');
+let templeOfTheSun = new CreateLocations('Temple of the Sun', 'templeofthesun', 'earthtreasure');
+let watchtower = new CreateLocations('Watchtower', 'watchtower', '');
+let ironGate = new CreateLocations('Iron Gate', 'irongate', '');
+let foolsLanding = new CreateLocations('Fools Landing', 'foolslanding', '');
+let copperGate = new CreateLocations('Copper Gate', 'coppergate', '');
+let coralPalace = new CreateLocations('Coral Palace', 'coralpalace', 'watertreasure');
+let dunesOfDeception = new CreateLocations('Dunes of Deception', 'dunesofdeception', '');
+let goldGate = new CreateLocations('Gold Gate', 'goldgate', '');
+let bronzeGate = new CreateLocations('Bronze Gate', 'bronzegate', '');
+let crimsonForest = new CreateLocations('Crimson Forest', 'crimsonforest', '');
+let observatory = new CreateLocations('Observatory', 'observatory', '');
+let tidalPalace = new CreateLocations('Tidal Palace', 'tidalpalace', 'watertreasure');
+let whisperingGarden = new CreateLocations('Whispering Garden', 'whisperinggarden', 'airtreasure');
+let templeOfTheMoon = new CreateLocations('Temple of the Moon', 'templeofthemoon', 'earthtreasure');
+let mistyMarsh = new CreateLocations('Misty Marsh', 'mistymarsh', '');
+let twilightHollow = new CreateLocations('Twilight Hollow', 'twilighthollow', '');
+let caveOfEmbers = new CreateLocations('Cave Of Embers', 'caveofembers', 'firetreasure');
+let cliffsOfAbandon = new CreateLocations('Cliffs of Abandon', 'cliffsofabandon', '');
+let breakersBridge = new CreateLocations('Breakers Bridge', 'breakersbridge', '');
+
+
+let treasurePickupLocations = [howlingGarden, whisperingGarden, templeOfTheSun, templeOfTheMoon, caveOfShadows, caveOfEmbers, tidalPalace, coralPalace];
 
 //CreateTreasures Constructor
 //This creates the treasures deck
 function CreateTreasuresDeck(cardName, id){
     this.name = cardName,
     this.className = id,
+    this.id = id,
     this.pushToTreasureDeck = function() {
         treasureDeck.push(this);
     }
@@ -180,9 +191,13 @@ let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
 
 //discard
 const discard = (e) =>{
+    //identify discard button that was clicked and find it's parent element(the card itself) with an array of classes
     let eventLocation = e.srcElement.parentElement.classList[0];
+    let pilothand = pilot.hand
+    //
     const isEventLocation = (location) => location.className === eventLocation; 
     let index = pilot.hand.findIndex(isEventLocation);
+            treasuresDiscard.push(pilot.hand[index]);
             pilot.hand.splice(index, 1);
             e.srcElement.parentElement.remove();
             e.srcElement.remove();
@@ -244,7 +259,6 @@ const unfloodSandbag = (e) =>{
             
     //switch locations from flooded = true to flooded = false
     for(let i = 0; i<combinedLocations.length; i++){
-        console.log(combinedLocations[i]);
         for(let j = 0; j < combinedLocations[i].length; j++){
             if(combinedLocations[i][j].id === id){
                 combinedLocations[i][j].flooded = false;
@@ -253,13 +267,11 @@ const unfloodSandbag = (e) =>{
                 }
                 for(let i = 0; i < tiles.length; i++){
                     tiles[i].removeEventListener('click', unfloodSandbag);
-                    console.log('removed');
         }
     }
 
 //get x and y
 const getXY = (e) =>{
-    console.log('getxy');
     var id = e.srcElement.id;
     var tiles = document.getElementsByClassName('tile');
     var combinedLocations = [locations, floodDiscard];
@@ -271,7 +283,6 @@ const getXY = (e) =>{
             if(combinedLocations[j][k].id === id){
                 x = combinedLocations[j][k].x;
                 y = combinedLocations[j][k].y;
-                console.log(combinedLocations[j][k]);
             }
         }
     }
@@ -285,7 +296,6 @@ const getXY = (e) =>{
     //move player without adding to playeraction array
     for(let i = 0; i < tiles.length; i++){
      tiles[i].removeEventListener('click', getXY);
-     console.log('removed');
     }
 }
 
@@ -296,8 +306,7 @@ const useHelicopterLift = (e) => {
     let tiles = document.getElementsByClassName('tile');
     //move player without adding to playeraction array
     for(let i = 0; i < tiles.length; i++){
-     document.getElementsByClassName('tile')[i].addEventListener('click', getXY);
-     console.log('added')   
+     document.getElementsByClassName('tile')[i].addEventListener('click', getXY);  
     }
 
     //send card to discard
@@ -323,7 +332,6 @@ const useSandbag = (e) => {
     //move player without adding to playeraction array
     for(let i = 0; i < tiles.length; i++){
      document.getElementsByClassName('tile')[i].addEventListener('click', unfloodSandbag);
-     console.log('added')   
     }
 
     //send card to discard
@@ -560,7 +568,6 @@ const unflood = (e) =>{
             
             //switch locations from flooded = true to flooded = false
             for(let i = 0; i<combinedLocations.length; i++){
-                console.log(combinedLocations[i]);
                 for(let j = 0; j < combinedLocations[i].length; j++){
                     if(combinedLocations[i][j].id === id){
                         combinedLocations[i][j].flooded = false;
@@ -688,3 +695,145 @@ const endTurn = () => {
     document.getElementById('endturn').style.display = 'none';
     document.getElementById('drawtreasurecards').style.display = 'flex';
 }
+
+//collect treasures
+
+const collectTreasure = (e) =>{
+    let triggerBtn = e.srcElement.id+'treasure';
+    let length = pilot.hand.length;
+    let trigger = e.srcElement.id;
+    treasureCount++;
+    for(let i = 0; i <treasurePickupLocations.length; i++){
+        if(triggerBtn === treasurePickupLocations[i].treasure){
+            document.getElementById(treasurePickupLocations[i].treasure).style.visibility = 'visible';
+            document.getElementById(treasurePickupLocations[i].treasure).style.width = '100px';
+            document.getElementById(treasurePickupLocations[i].treasure).style.height = '100px';
+            if(document.getElementById('earthtreasure').style.visibility === 'visible'){
+                earthTreasureCollected = true;
+            } else if(document.getElementById('firetreasure').style.visibility === 'visible'){
+                fireTreasureCollected = true;
+            } else if(document.getElementById('watertreasure').style.visibility === 'visible'){
+                waterTreasureCollected = true;
+            } else if(document.getElementById('airtreasure').style.visibility === 'visible'){
+                airTreasureCollected = true;
+            }
+        }
+    }
+
+    let children = document.getElementById('treasurehand').children;
+    let childLength = children.length;
+    //remove cards with classname 
+    let indices = [];
+    
+    
+    for(let i = 0; i<length; i++){
+        if(pilot.hand[i].id === trigger){
+            treasuresDiscard.push(pilot.hand[i]); //working
+            indices.unshift(i); //working
+        }
+    }
+    
+    let indicesLength = indices.length;
+
+    for(let k = 0; k < indicesLength; k++){
+        pilot.hand.splice(indices[k], 1); 
+    }
+
+    let domIndices = []
+    
+
+    for(let j = 0; j<childLength; j++){
+        if(children[j].classList.contains(trigger)){
+            domIndices.unshift(j);
+        }
+    }
+
+    let domIndicesLength = domIndices.length;
+
+    for(let i = 0; i < domIndicesLength; i++){
+        children[domIndices[i]].remove();
+    }
+
+
+                //remove previous classname from div
+                treasureDiscardDOM.classList = '';
+                //add new class name
+                treasureDiscardDOM.classList.add(trigger);
+                document.getElementById(trigger).parentNode.removeChild(document.getElementById(trigger));
+}
+
+//collect treasures btn
+//var checkTreasures = setInterval(collectTreasuresBtn, 100);
+const stopCheckTreasures = () => clearInterval(checkTreasures);
+
+const collectTreasuresBtn = () =>{
+    let hand = pilot.hand;
+    let earth = 0;
+    let fire = 0;
+    let air = 0; 
+    let water = 0;
+
+    //if player has 4 of the same treasure in hand AND is on specific location
+    for(let i = 0; i < hand.length; i++){
+        if(hand[i].id === 'earth'){
+            earth++;
+        } else if (hand[i].id === 'fire'){
+            fire++;
+        } else if (hand[i].id === 'water'){
+            water++;
+        } else if (hand[i].id === 'air'){
+            air++
+        }
+    }
+    //create btn
+
+    let newBtn = document.createElement('button');
+
+    //collect *treasure name* treasure
+    if((earth >= 4 && (pilot.x - offset) === templeOfTheMoon.x && (pilot.y - offset) === templeOfTheMoon.y && earthTreasureCollected === false && playerActions<3) ||
+    (earth >= 4 && (pilot.x - offset) === templeOfTheSun.x && (pilot.y - offset) === templeOfTheSun.y && earthTreasureCollected === false && playerActions<3)){
+        newBtn.setAttribute('id', 'earth');
+        newBtn.innerText = 'Collect Treasure';
+        newBtn.addEventListener('click', collectTreasure);
+        document.getElementById('treasures').appendChild(newBtn);
+        clearInterval(checkTreasures);
+        return;
+    } else if((fire >= 4 && (pilot.x - offset) === caveOfEmbers.x && (pilot.y - offset) === caveOfEmbers.y && fireTreasureCollected === false && playerActions<3) ||
+    (fire >= 4 && (pilot.x - offset) === caveOfShadows.x && (pilot.y - offset) === caveOfShadows.y && fireTreasureCollected === false && playerActions<3)){
+        newBtn.setAttribute('id', 'fire');
+        newBtn.addEventListener('click', collectTreasure);
+        newBtn.innerText = 'Collect Treasure';
+        document.getElementById('treasures').appendChild(newBtn);
+        clearInterval(checkTreasures);
+        return;
+    }else if((air >= 4 && (pilot.x - offset) === whisperingGarden.x && (pilot.y - offset) === whisperingGarden.y && airTreasureCollected === false && playerActions<3) ||
+    (air >= 4 && (pilot.x - offset) === howlingGarden.x && (pilot.y - offset) === howlingGarden.y && airTreasureCollected === false && playerActions<3)){
+        newBtn.setAttribute('id', 'air');
+        newBtn.addEventListener('click', collectTreasure);
+        newBtn.innerText = 'Collect Treasure';
+        document.getElementById('treasures').appendChild(newBtn);
+        clearInterval(checkTreasures);
+        return;
+    }else if((water >= 4 && (pilot.x - offset) === tidalPalace.x && (pilot.y - offset) === tidalPalace.y && waterTreasureCollected === false && playerActions<3) ||
+    (water >= 4 && (pilot.x - offset) === coralPalace.x && (pilot.y - offset) === coralPalace.y && fireTreasureCollected === false && playerActions<3)){
+        newBtn.setAttribute('id', 'water');
+        newBtn.addEventListener('click', collectTreasure);
+        newBtn.innerText = 'Collect Treasure';
+        document.getElementById('treasures').appendChild(newBtn);
+        clearInterval(checkTreasures);
+        return;
+    }
+    //treasure picture visible
+}
+var checkTreasures = setInterval(collectTreasuresBtn, 100);
+
+const flyOff = () =>{
+    //if treasure ===1 && player on fools landing && player has helicpter lift
+    //then fly off
+    //trigger win
+}
+
+const lossConditions = () => {
+
+}
+
