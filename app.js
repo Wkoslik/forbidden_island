@@ -232,6 +232,91 @@ const playerHandLimit = () =>{
         removeBlock();
     }
 }
+//unflood with sandbag
+const unfloodSandbag = (e) =>{
+    var id = e.srcElement.id;
+    var combinedLocations = [locations, floodDiscard];
+
+    document.getElementById(id).classList.remove('flooded');
+    document.getElementById(id).style.opacity = '100%';
+    document.getElementById(id).removeEventListener('click', unflood);
+            
+    //switch locations from flooded = true to flooded = false
+    for(let i = 0; i<combinedLocations.length; i++){
+        console.log(combinedLocations[i]);
+        for(let j = 0; j < combinedLocations[i].length; j++){
+            if(combinedLocations[i][j].id === id){
+                combinedLocations[i][j].flooded = false;
+                        } 
+                    }
+                }
+        }
+
+//get x and y
+const getXY = (e) =>{
+    console.log('getxy');
+    var id = e.srcElement.id;
+    var tiles = document.getElementsByClassName('tile');
+    var combinedLocations = [locations, floodDiscard];
+    var x;
+    var y;
+
+    for (let j=0; j<combinedLocations.length; j++){
+        for (let k = 0; k<combinedLocations[j].length; k++){
+            if(combinedLocations[j][k].id === id){
+                x = combinedLocations[j][k].x;
+                y = combinedLocations[j][k].y;
+            }
+        }
+    }
+
+    pilot.x = x + 37.5 - 12.5;
+    pilot.y = y + 35.7 - 12.5;
+    document.getElementById('pilot').style.left = (pilot.x) + 'px';
+    document.getElementById('pilot').style.top = (pilot.y) + 'px';
+
+
+    //move player without adding to playeraction array
+    for(let i = 0; i < tiles.length; i++){
+     tiles[i].removeEventListener('click', getXY);
+     console.log('removed');
+    }
+}
+
+//useHelicopterLift
+const useHelicopterLift = (e) => {
+    removeBlock();
+    console.log('yo1');
+    let tiles = document.getElementsByClassName('tile');
+    //move player without adding to playeraction array
+    for(let i = 0; i < tiles.length; i++){
+     document.getElementsByClassName('tile')[i].addEventListener('click', getXY);
+     console.log('added')   
+    }
+    console.log('yo')
+    //send card to discard
+    let eventLocation = e.srcElement.parentElement.classList[0];
+    const isEventLocation = (location) => location.className === eventLocation; 
+    let index = pilot.hand.findIndex(isEventLocation);
+            pilot.hand.splice(index, 1);
+            e.srcElement.parentElement.remove();
+            e.srcElement.remove();
+            //remove previous classname from div
+            treasureDiscardDOM.classList = '';
+            //add new class name
+            treasureDiscardDOM.classList.add(eventLocation);
+
+    //removeBlock();
+}
+
+//useSandbag
+
+const useSandbag = () => {
+    //shore up a tile without adding to player action array
+    unfloodSandbag();
+    //send card to discard
+    discard();
+}
 
 const treasureDeckDraw = () =>{
     //push 2 cards into the playerhandhold array
@@ -280,8 +365,23 @@ const treasureDeckDraw = () =>{
             let button = document.createElement('button');
             //add function to button
             button.addEventListener('click', discard);
+            button.classList.add('discard');
             button.innerText = 'Discard';
             newDiv.appendChild(button);
+            //if playerhandhold[i].classname == sandbag || helcopterlift add a button
+            if(playerHandHold[i].className === 'sandbag' || playerHandHold[i].className === 'helicopterlift'){
+                let secondBtn = document.createElement('button');
+                newDiv.appendChild(secondBtn);
+                if(playerHandHold[i].className === 'sandbag'){
+                    secondBtn.addEventListener('click', useSandbag);
+                    secondBtn.classList.add('usesandbag');
+                    secondBtn.innerText = 'Use at any time';
+                } else {
+                    secondBtn.addEventListener('click', useHelicopterLift);
+                    secondBtn.classList.add('usehelicopter');
+                    secondBtn.innerText = 'Use at any time';
+                }
+            }
         }
     }
 //empty playerHandHold
@@ -417,6 +517,7 @@ const flood = () =>{
     floodHolding.length = 0;
 }
 
+
 //unflood
 
 const unflood = (e) =>{
@@ -519,14 +620,12 @@ playerXAndY();
 
 const playerTurn = () =>{
     //if playerActions array.length === 3, button to end turn
-    document.getElementById('endturn').style.visibility = 'visible';
-    document.getElementById('endturn').addEventListener('click', endTurn);
+    document.getElementById('drawtreasurecards').addEventListener('click', playerDeckDraw);
     document.getElementById('playeractions').style.visibility = 'visible';
     document.getElementById('playeractions').innerText = 'Player Actions: ' + playerActions;
     if(playerActions === 3){
-        document.getElementById('playeractions').innerText = 'Player Actions: ' + playerActions + " (You've hit your limit! End your turn.)";
+        document.getElementById('playeractions').innerText = 'Player Actions: ' + playerActions + " (You've hit your limit! Draw two treasure cards!)";
         clickBlock();
-
     }
 }
 
@@ -553,10 +652,18 @@ const youLose = () => {
 
 setInterval(playerTurn, 100);
 
-const endTurn = () => {
+const playerDeckDraw = () =>{
     treasureDeckDraw();
+    document.getElementById('endturn').style.display = 'flex';
+    document.getElementById('endturn').addEventListener('click', endTurn);
+    document.getElementById('drawtreasurecards').style.display = 'none';
+}
+
+const endTurn = () => {
     islandTurn = true;
     flood();
     removeBlock();
     playerActions = 0;
+    document.getElementById('endturn').style.display = 'none';
+    document.getElementById('drawtreasurecards').style.display = 'flex';
 }

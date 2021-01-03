@@ -523,18 +523,26 @@ progress{
     background-size: contain;
 }
 
-#endturn{
+#endturn, #drawtreasurecards{
     padding: 22px;
     font-weight: bold;
     margin: 0 auto;
 }
 
-.button{
-    display: flex;
-    visibility: hidden;
+#endturn{
+    display: none;
 }
 
-#endturn:hover{
+.button{
+    display: flex;
+}
+
+.discard{
+    margin-top: 100%;
+    margin-left: 4px;
+}
+
+#endturn:hover, #drawtreasurecards:hover{
     cursor: pointer;
     background-color: red;
     transition: 750ms ease;
