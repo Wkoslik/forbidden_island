@@ -236,6 +236,7 @@ const playerHandLimit = () =>{
 const unfloodSandbag = (e) =>{
     var id = e.srcElement.id;
     var combinedLocations = [locations, floodDiscard];
+    let tiles = document.getElementsByClassName('tile');
 
     document.getElementById(id).classList.remove('flooded');
     document.getElementById(id).style.opacity = '100%';
@@ -250,7 +251,11 @@ const unfloodSandbag = (e) =>{
                         } 
                     }
                 }
+                for(let i = 0; i < tiles.length; i++){
+                    tiles[i].removeEventListener('click', unfloodSandbag);
+                    console.log('removed');
         }
+    }
 
 //get x and y
 const getXY = (e) =>{
@@ -286,14 +291,14 @@ const getXY = (e) =>{
 //useHelicopterLift
 const useHelicopterLift = (e) => {
     removeBlock();
-    console.log('yo1');
+
     let tiles = document.getElementsByClassName('tile');
     //move player without adding to playeraction array
     for(let i = 0; i < tiles.length; i++){
      document.getElementsByClassName('tile')[i].addEventListener('click', getXY);
      console.log('added')   
     }
-    console.log('yo')
+
     //send card to discard
     let eventLocation = e.srcElement.parentElement.classList[0];
     const isEventLocation = (location) => location.className === eventLocation; 
@@ -306,16 +311,31 @@ const useHelicopterLift = (e) => {
             //add new class name
             treasureDiscardDOM.classList.add(eventLocation);
 
-    //removeBlock();
 }
 
 //useSandbag
 
-const useSandbag = () => {
-    //shore up a tile without adding to player action array
-    unfloodSandbag();
+const useSandbag = (e) => {
+    removeBlock();
+
+    let tiles = document.getElementsByClassName('tile');
+    //move player without adding to playeraction array
+    for(let i = 0; i < tiles.length; i++){
+     document.getElementsByClassName('tile')[i].addEventListener('click', unfloodSandbag);
+     console.log('added')   
+    }
+
     //send card to discard
-    discard();
+    let eventLocation = e.srcElement.parentElement.classList[0];
+    const isEventLocation = (location) => location.className === eventLocation; 
+    let index = pilot.hand.findIndex(isEventLocation);
+            pilot.hand.splice(index, 1);
+            e.srcElement.parentElement.remove();
+            e.srcElement.remove();
+            //remove previous classname from div
+            treasureDiscardDOM.classList = '';
+            //add new class name
+            treasureDiscardDOM.classList.add(eventLocation);
 }
 
 const treasureDeckDraw = () =>{
@@ -388,7 +408,7 @@ const treasureDeckDraw = () =>{
 playerHandHold = [];
 }
 
-//movement with board game boundaries
+//movement with board game boundaries **REFACTOR** If currentlocation +movement > upper boundary then no movement
 
 const movementHandler = (e) => {
     if ((pilot.x === 385 && pilot.y === 130 && e.key === 'w') || //col4, row 1
