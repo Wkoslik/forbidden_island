@@ -271,12 +271,13 @@ const getXY = (e) =>{
             if(combinedLocations[j][k].id === id){
                 x = combinedLocations[j][k].x;
                 y = combinedLocations[j][k].y;
+                console.log(combinedLocations[j][k]);
             }
         }
     }
 
     pilot.x = x + 37.5 - 12.5;
-    pilot.y = y + 35.7 - 12.5;
+    pilot.y = y + 37.5 - 12.5;
     document.getElementById('pilot').style.left = (pilot.x) + 'px';
     document.getElementById('pilot').style.top = (pilot.y) + 'px';
 
