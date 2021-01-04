@@ -25,17 +25,8 @@
     13.a if player on tile && if player has 4 treasure cards && if treasure hasn't been collected
 */
 
-console.log("yodel");
-
-
-//TAKE TWO BUT WITH DIVS
-
-//onclick remove first and then add pilot to tile
-
 //setting up the game
 let movement = 85;
-
-//setting up game variables
 let waterLevelArray = [2, 2, 3, 3, 3, 4, 4, 5, 5, 6];
 let playerHand = [];
 let treasureDeck = [];
@@ -87,6 +78,7 @@ function CreateLocations(locName, id, treasure){
     }
     this.pushToLocations();
 }
+
 
 //render locations
 let howlingGarden = new CreateLocations('Howling Garden', 'howlinggarden', 'airtreasure');
@@ -175,6 +167,25 @@ let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
 
 /* HELPER FUNCTIONS */
 
+
+//loss condition
+
+const youLose = () => {
+    if(progressBarValue === 100 || 
+       foolsLanding.sunk === true || 
+       (treasureCount === 0 && howlingGarden.sunk === true && whisperingGarden.sunk === true && 
+        tidalPalace.sunk === true && coralPalace.sunk === true &&
+        templeOfTheMoon.sunk === true && templeOfTheSun.sunk === true &&
+        caveOfEmbers.sunk === true && caveOfShadows.sunk === true)){
+            document.getElementById('gamecontainer').style.backgroundColor = 'red';
+            document.getElementById('gamecontainer').innerText = "You Lost!"
+            clearInterval(playerTurn);
+            clearInterval(collectTreasuresBtn);
+            clearInterval(checkPlayerHandLimit);
+            clearInterval(youWin);
+        }
+}
+
     //Shuffle Deck
     const shuffleDeck = (deck) =>{
         let currentIndex = deck.length, tempValue, randomIndex;
@@ -210,7 +221,6 @@ const discard = (e) =>{
             treasureDiscardDOM.classList.add(eventLocation);
         }
 
- 
 
     //draw flood cards
 
@@ -251,6 +261,60 @@ const drawFloodCards = () =>{
         }
 }
 
+//movement with board game boundaries **REFACTOR** If currentlocation +movement > upper boundary then no movement
+
+const movementHandler = (e) => {
+    if ((pilot.x === 385 && pilot.y === 130 && e.key === 'w') || //col4, row 1
+    (pilot.x === 300 && pilot.y === 45 && e.key === 'w') ||
+    (pilot.x === 215 && pilot.y === 45 && e.key === 'w') ||
+    (pilot.x === 130 && pilot.y === 130 && e.key === 'w')  ||
+    (pilot.x === 45 && pilot.y === 215 && e.key === 'w') ||
+    (pilot.x === 470 && pilot.y === 215 && e.key === 'w')) {
+        alert("You can't move further North. Try a different direction.")
+    } else if ((pilot.x === 470 && pilot.y === 300 && e.key === 's') || 
+    (pilot.x === 385 && pilot.y === 385 && e.key === 's') ||
+    (pilot.x === 300 && pilot.y === 470 && e.key === 's') ||
+    (pilot.x === 215 && pilot.y === 470 && e.key === 's')  ||
+    (pilot.x === 130 && pilot.y === 385 && e.key === 's') ||
+    (pilot.x === 45 && pilot.y === 300 && e.key === 's')) {
+        alert("You can't move further South. Try a different direction.")
+    } else if ((pilot.x === 215 && pilot.y === 45 && e.key === 'a') || 
+    (pilot.x === 130 && pilot.y === 130 && e.key === 'a') ||
+    (pilot.x === 45 && pilot.y === 215 && e.key === 'a') ||
+    (pilot.x === 45 && pilot.y === 300 && e.key === 'a')  ||
+    (pilot.x === 130 && pilot.y === 385 && e.key === 'a') ||
+    (pilot.x === 215 && pilot.y === 470 && e.key === 'a')) {
+        alert("You can't move further West. Try a different direction.")
+    } else if ((pilot.x === 300 && pilot.y === 45 && e.key === 'd') || 
+    (pilot.x === 385 && pilot.y === 130 && e.key === 'd') ||
+    (pilot.x === 470 && pilot.y === 215 && e.key === 'd') ||
+    (pilot.x === 470 && pilot.y === 300 && e.key === 'd')  ||
+    (pilot.x === 385 && pilot.y === 385 && e.key === 'd') ||
+    (pilot.x === 300 && pilot.y === 470 && e.key === 'd')) {
+        alert("You can't move further East. Try a different direction.")
+    } else if (e.key === 'w'){
+        pilot.element.style.top = (pilot.y -= movement) + 'px';
+        playerActions++;
+        console.log(pilot.x, pilot.y);
+    } else if (e.key === 'a'){
+        pilot.element.style.left = (pilot.x -= movement) + 'px';
+        playerActions++;
+        console.log(pilot.x, pilot.y);
+    } else if (e.key === 's'){
+        pilot.element.style.top =  (pilot.y += movement) + 'px';
+        playerActions++;
+        console.log(pilot.x, pilot.y);
+    } else if (e.key ==='d'){
+        pilot.element.style.left = (pilot.x += movement) + 'px';
+        playerActions++;
+        console.log(pilot.x, pilot.y);
+    } else{
+        alert("That key won't let you move. Try W, A, S, or D.");
+    }
+}
+
+document.addEventListener('keydown', movementHandler);
+
 //prevent clicks if players turn is over
 
 const clickBlock = () => {
@@ -266,18 +330,25 @@ const removeBlock = () =>{
 }
 
 //check player hand limit
+const handOverFive = () =>{
+    document.getElementById('cardlimit').style.display = 'block';
+    document.getElementById('endturn').removeEventListener('click', endTurn);
+}
 
-const playerHandLimit = () =>{
+
+
+const checkPlayerHandLimit = () =>{
     if(pilot.hand.length > 5){
         clickBlock();
-        //add alert element
-        let handLimitAlert = document.createElement('h3');
-        handLimitAlert.innerText = 'You have too many cards in hand. Reduce the number of cards in hand to 5.'
-        document.getElementById('secondRow').appendChild(handLimitAlert);
+        handOverFive();
     } else {
-        removeBlock();
+        document.getElementById('endturn').addEventListener('click', endTurn);
+        document.getElementById('cardlimit').style.display = 'none';
     }
 }
+
+const activeHandChecking = setInterval(checkPlayerHandLimit, 100);
+
 //unflood with sandbag
 const unfloodSandbag = (e) =>{
     var id = e.srcElement.id;
@@ -362,7 +433,7 @@ const useSandbag = (e) => {
     let tiles = document.getElementsByClassName('tile');
     //move player without adding to playeraction array
     for(let i = 0; i < tiles.length; i++){
-     document.getElementsByClassName('tile')[i].addEventListener('click', unfloodSandbag);
+        document.getElementsByClassName('tile')[i].addEventListener('click', unfloodSandbag);
     }
 
     //send card to discard
@@ -464,60 +535,30 @@ const treasureDeckDraw = () =>{
 playerHandHold = [];
 }
 
-//movement with board game boundaries **REFACTOR** If currentlocation +movement > upper boundary then no movement
 
-const movementHandler = (e) => {
-    if ((pilot.x === 385 && pilot.y === 130 && e.key === 'w') || //col4, row 1
-    (pilot.x === 300 && pilot.y === 45 && e.key === 'w') ||
-    (pilot.x === 215 && pilot.y === 45 && e.key === 'w') ||
-    (pilot.x === 130 && pilot.y === 130 && e.key === 'w')  ||
-    (pilot.x === 45 && pilot.y === 215 && e.key === 'w') ||
-    (pilot.x === 470 && pilot.y === 215 && e.key === 'w')) {
-        alert("You can't move further North. Try a different direction.")
-    } else if ((pilot.x === 470 && pilot.y === 300 && e.key === 's') || 
-    (pilot.x === 385 && pilot.y === 385 && e.key === 's') ||
-    (pilot.x === 300 && pilot.y === 470 && e.key === 's') ||
-    (pilot.x === 215 && pilot.y === 470 && e.key === 's')  ||
-    (pilot.x === 130 && pilot.y === 385 && e.key === 's') ||
-    (pilot.x === 45 && pilot.y === 300 && e.key === 's')) {
-        alert("You can't move further South. Try a different direction.")
-    } else if ((pilot.x === 215 && pilot.y === 45 && e.key === 'a') || 
-    (pilot.x === 130 && pilot.y === 130 && e.key === 'a') ||
-    (pilot.x === 45 && pilot.y === 215 && e.key === 'a') ||
-    (pilot.x === 45 && pilot.y === 300 && e.key === 'a')  ||
-    (pilot.x === 130 && pilot.y === 385 && e.key === 'a') ||
-    (pilot.x === 215 && pilot.y === 470 && e.key === 'a')) {
-        alert("You can't move further West. Try a different direction.")
-    } else if ((pilot.x === 300 && pilot.y === 45 && e.key === 'd') || 
-    (pilot.x === 385 && pilot.y === 130 && e.key === 'd') ||
-    (pilot.x === 470 && pilot.y === 215 && e.key === 'd') ||
-    (pilot.x === 470 && pilot.y === 300 && e.key === 'd')  ||
-    (pilot.x === 385 && pilot.y === 385 && e.key === 'd') ||
-    (pilot.x === 300 && pilot.y === 470 && e.key === 'd')) {
-        alert("You can't move further East. Try a different direction.")
-    } else if (e.key === 'w'){
-        pilot.element.style.top = (pilot.y -= movement) + 'px';
-        playerActions++;
-        console.log(pilot.x, pilot.y);
-    } else if (e.key === 'a'){
-        pilot.element.style.left = (pilot.x -= movement) + 'px';
-        playerActions++;
-        console.log(pilot.x, pilot.y);
-    } else if (e.key === 's'){
-        pilot.element.style.top =  (pilot.y += movement) + 'px';
-        playerActions++;
-        console.log(pilot.x, pilot.y);
-    } else if (e.key ==='d'){
-        pilot.element.style.left = (pilot.x += movement) + 'px';
-        playerActions++;
-        console.log(pilot.x, pilot.y);
-    } else{
-        alert("That key won't let you move. Try W, A, S, or D.");
+const youWin = () =>{
+    let helicopterCount = 0;
+    
+    //figure out how many helicopter lifts the player has in hand
+    for(let i = 0; i < pilot.hand.length; i++){
+        if(pilot.hand[i].className === 'helicopterlift'){
+            helicopterCount++;
+        }
+    }
+
+    //if treasure ===1 && player on fools landing && player has helicopter lift
+    if(treasureCount >= treasureGoal && (pilot.x === (foolsLanding.x + offset)) && (pilot.y === (foolsLanding.y + offset)) && helicopterCount >=1){
+        document.getElementById('gamecontainer').style.backgroundColor = 'blue';
+        document.getElementById('gamecontainer').innerText = "You Won!";
+        clearInterval(playerTurn);
+        clearInterval(collectTreasuresBtn);
+        clearInterval(checkPlayerHandLimit);
+        clearInterval(youLose);
     }
 }
 
-document.addEventListener('keydown', movementHandler);
 
+setInterval(youWin, 1000);
 //flood
 
 const flood = () =>{
@@ -566,12 +607,9 @@ const flood = () =>{
             floodHolding.push(locations[j])
         }
         //remove the first 6 locations from the locations deck
-        locations.shift();
-        locations.shift();
-        locations.shift();
-        locations.shift();
-        locations.shift();
-        locations.shift();
+        for(let j = 0; j < 6; j++){
+            locations.shift();
+        }
         //loop through flood holding to flood tiles
         for(let i = 0; i < 6; i++){
             //switch flooded to true
@@ -591,6 +629,7 @@ const flood = () =>{
         }
     }
     floodHolding.length = 0;
+    youLose();
 }
 
 
@@ -627,9 +666,14 @@ const unflood = (e) =>{
     }
 }
 
+//update Pilot X and Y to be on top of Fools Landing
 
-
-
+const playerXAndY = () =>{
+    document.getElementById('pilot').style.left = (foolsLanding.x + offset) + 'px';
+    document.getElementById('pilot').style.top = (foolsLanding.y + offset) + 'px';
+    pilot.x = foolsLanding.x + offset;
+    pilot.y = foolsLanding.y + offset;
+}
 
 //update x and y values for locations
 
@@ -653,6 +697,7 @@ const randomTiles = () =>{
         }
     }
 
+//Game Set up 
 const gameSetup = () =>{
     //randomly generate board
     randomTiles();
@@ -665,30 +710,19 @@ const gameSetup = () =>{
     //two treasure cards to the player
     treasureDeckDraw();
     //push watersrise into treasure deck
-    treasureDeck.push(watersRiseDeck[0]);
-    treasureDeck.push(watersRiseDeck[0]);
-    treasureDeck.push(watersRiseDeck[0]);
+    for(let i = 0; i < 3; i++){
+        treasureDeck.push(watersRiseDeck[0]);
+    }
     //shuffle treasuredeck(three times for good measure)
-    shuffleDeck(treasureDeck);
-    shuffleDeck(treasureDeck);
-    shuffleDeck(treasureDeck);
+    for(let i = 0; i < 3; i++){
+        shuffleDeck(treasureDeck);
+    }
 }
 
 
 gameSetup();
 
-//update Pilot X and Y to be on top of Fools Landing
-
-const playerXAndY = () =>{
-    document.getElementById('pilot').style.left = (foolsLanding.x + offset) + 'px';
-    document.getElementById('pilot').style.top = (foolsLanding.y + offset) + 'px';
-    pilot.x = foolsLanding.x + offset;
-    pilot.y = foolsLanding.y + offset;
-}
-
 playerXAndY();
-
-
 
 //player turn 
 
@@ -703,28 +737,8 @@ const playerTurn = () =>{
     }
 }
 
-
-
-//if draw deck is empty
-
-
-//exchange treasure card button
-    //if on the right tile && has 4 of the same card
-//treasuresCollected = 0;
-//treasures to collect
-
-//win condition
-    //fly away button
-//lose condition
-const youLose = () => {
-    if(progressBarValue === 100 || foolsLanding.sunk === true)
-    console.log('You Lost!');
-}
-//helper text
-//sandbag functionality
-//helicopter lift functionality
-
 setInterval(playerTurn, 100);
+
 
 const playerDeckDraw = () =>{
     treasureDeckDraw();
@@ -802,15 +816,14 @@ const collectTreasure = (e) =>{
     }
 
 
-                //remove previous classname from div
-                treasureDiscardDOM.classList = '';
-                //add new class name
-                treasureDiscardDOM.classList.add(trigger);
-                document.getElementById(trigger).parentNode.removeChild(document.getElementById(trigger));
+    //remove previous classname from div
+    treasureDiscardDOM.classList = '';
+    //add new class name
+    treasureDiscardDOM.classList.add(trigger);
+    document.getElementById(trigger).parentNode.removeChild(document.getElementById(trigger));
 }
 
 //collect treasures btn
-//var checkTreasures = setInterval(collectTreasuresBtn, 100);
 const stopCheckTreasures = () => clearInterval(checkTreasures);
 
 const collectTreasuresBtn = () =>{
@@ -873,22 +886,5 @@ const collectTreasuresBtn = () =>{
     //treasure picture visible
 }
 var checkTreasures = setInterval(collectTreasuresBtn, 100);
-
-const youWin = () =>{
-    let helicopterCount = 0;
-    
-    //figure out how many helicopter lifts the player has in hand
-    for(let i = 0; i < pilot.hand.length; i++){
-        if(pilot.hand[i].className === 'helicopterlift'){
-            helicopterCount++;
-        }
-    }
-
-    //if treasure ===1 && player on fools landing && player has helicpter lift
-    if(treasureCount >= treasureGoal && (pilot.x === (foolsLanding.x + offset)) && (pilot.y === (foolsLanding.y + offset)) && helicopterCount >=1){
-        document.getElementById('gamecontainer').style.backgroundColor = 'blue';
-        document.getElementById('gamecontainer').innerText = "You Won!"
-    }
-}
 
 
