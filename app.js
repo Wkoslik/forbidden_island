@@ -61,10 +61,13 @@ let progressBar = document.getElementById('progressbar');
 let progressBarValue = 5;
 let offset = 25;
 let treasureCount = 0;
+let treasureGoal = 1;
 let earthTreasureCollected = false;
 let waterTreasureCollected = false;
 let fireTreasureCollected = false;
 let airTreasureCollected = false;
+let pilotDomLeft = document.getElementById('pilot').style.left;
+let pilotDomTop = document.getElementById('pilot').style.top;
 
 
 //Create Locations constructor -- 
@@ -154,9 +157,9 @@ let earth5 = new CreateTreasuresDeck('earth', 'earth');
 let sandbag1 = new CreateTreasuresDeck('sandbag', 'sandbag');
 let sandbag2 = new CreateTreasuresDeck('sandbag', 'sandbag');
 
-let helicopterLift1 = new CreateTreasuresDeck('helicoper lift', 'helicopterlift');
-let helicopterLift2 = new CreateTreasuresDeck('helicoper lift', 'helicopterlift');
-let helicopterLift3 = new CreateTreasuresDeck('helicoper lift', 'helicopterlift');
+let helicopterLift1 = new CreateTreasuresDeck('helicopter lift', 'helicopterlift');
+let helicopterLift2 = new CreateTreasuresDeck('helicopter lift', 'helicopterlift');
+let helicopterLift3 = new CreateTreasuresDeck('helicopter lift', 'helicopterlift');
 
 //CreateWatersRise Constructor
 //This creates the treasures deck
@@ -193,12 +196,12 @@ let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
 const discard = (e) =>{
     //identify discard button that was clicked and find it's parent element(the card itself) with an array of classes
     let eventLocation = e.srcElement.parentElement.classList[0];
-    let pilothand = pilot.hand
+    let pilotHand = pilot.hand
     //
     const isEventLocation = (location) => location.className === eventLocation; 
     let index = pilot.hand.findIndex(isEventLocation);
             treasuresDiscard.push(pilot.hand[index]);
-            pilot.hand.splice(index, 1);
+            pilotHand.splice(index, 1);
             e.srcElement.parentElement.remove();
             e.srcElement.remove();
             //remove previous classname from div
@@ -212,12 +215,40 @@ const discard = (e) =>{
     //draw flood cards
 
 const drawFloodCards = () =>{
+    let locationsLength = locations.length;
+
+    if(locationsLength >= waterLevelArray[waterLevelIndex]){
+
     //push locations we're flooding into the flood holding array.
     for (let i = 0; i < waterLevelArray[waterLevelIndex]; i ++){
         floodHolding.push(locations[i]);
     }
     //remove locations from the locations array.
     locations.splice(0, waterLevelArray[waterLevelIndex]);
+    } else if(locationsLength > 0){
+        let difference = waterLevelArray[waterLevelIndex] - locationsLength;
+        for(let i = 0; i < locationsLength; i++){
+            floodHolding.push(locations[i]);
+        }
+        locations.splice(0, locationsLength);
+        shuffleDeck(floodDiscard);
+        locations = floodDiscard;
+        floodDiscard = [];
+        for(let i = 0; i< difference; i++){
+            floodHolding.push(locations[i])
+        }
+        locations.splice(0, difference);
+    } else {
+        shuffleDeck(floodDiscard);
+        locations = floodDiscard;
+        floodDiscard = [];
+        //push locations we're flooding into the flood holding array.
+        for (let i = 0; i < waterLevelArray[waterLevelIndex]; i ++){
+            floodHolding.push(locations[i]);
+         }
+        //remove locations from the locations array.
+        locations.splice(0, waterLevelArray[waterLevelIndex]);
+        }
 }
 
 //prevent clicks if players turn is over
@@ -287,8 +318,8 @@ const getXY = (e) =>{
         }
     }
 
-    pilot.x = x + 37.5 - 12.5;
-    pilot.y = y + 37.5 - 12.5;
+    pilot.x = x + offset;
+    pilot.y = y + offset;
     document.getElementById('pilot').style.left = (pilot.x) + 'px';
     document.getElementById('pilot').style.top = (pilot.y) + 'px';
 
@@ -348,11 +379,27 @@ const useSandbag = (e) => {
 }
 
 const treasureDeckDraw = () =>{
-    //push 2 cards into the playerhandhold array
-    playerHandHold.push(treasureDeck[0], treasureDeck[1]);
-    //remove first two cards from 
-    treasureDeck.shift();
-    treasureDeck.shift();
+    if(treasureDeck.length>=2){
+        //push 2 cards into the playerhandhold array
+        playerHandHold.push(treasureDeck[0], treasureDeck[1]);
+        //remove first two cards from 
+        treasureDeck.shift();
+        treasureDeck.shift();
+    } else if(treasureDeck.length ===1){
+        playerHandHold.push(treasureDeck[0]);
+        treasureDeck.shift();
+        shuffleDeck(treasuresDiscard);
+        treasureDeck = treasuresDiscard;
+        treasuresDiscard = [];
+        //remove previous classname from div
+        treasureDiscardDOM.classList = '';
+    } else{
+        shuffleDeck(treasuresDiscard);
+        treasureDeck = treasuresDiscard;
+        treasuresDiscard = [];
+        //remove previous classname from div
+        treasureDiscardDOM.classList = '';
+    }
 
     for(let i = 0; i < 2; i++){
         if(playerHandHold[i].className === 'watersrise'){
@@ -556,11 +603,11 @@ const unflood = (e) =>{
 
    //if the location clicked is not NSEW of the player, reject the click.
 
-    if(((eventLoc.offsetTop === (pilot.y - 25 + 85)) && (eventLoc.offsetLeft === pilot.x - 25)) || //immediately south
-        ((eventLoc.offsetTop === (pilot.y - 25 )-85) && (eventLoc.offsetLeft === pilot.x - 25)) || //north
-        ((eventLoc.offsetLeft === (pilot.x - 25 )-85) && (eventLoc.offsetTop === pilot.y-25)) || //west
-        ((eventLoc.offsetLeft === (pilot.x - 25 )+85) && (eventLoc.offsetTop === pilot.y-25)) || // east
-        ((eventLoc.offsetTop === (pilot.y - 25)) && (eventLoc.offsetLeft === pilot.x - 25))){ //tile their on
+    if(((eventLoc.offsetTop === (pilot.y - offset + movement)) && (eventLoc.offsetLeft === pilot.x - offset)) || //immediately south
+        ((eventLoc.offsetTop === (pilot.y - offset ) - movement) && (eventLoc.offsetLeft === pilot.x - offset)) || //north
+        ((eventLoc.offsetLeft === (pilot.x - offset ) - movement) && (eventLoc.offsetTop === pilot.y-offset)) || //west
+        ((eventLoc.offsetLeft === (pilot.x - offset ) + movement) && (eventLoc.offsetTop === pilot.y-offset)) || // east
+        ((eventLoc.offsetTop === (pilot.y - offset)) && (eventLoc.offsetLeft === pilot.x - offset))){ //tile they're on
             document.getElementById(id).classList.remove('flooded');
             document.getElementById(id).style.opacity = '100%';
             document.getElementById(id).removeEventListener('click', unflood);
@@ -629,15 +676,14 @@ const gameSetup = () =>{
 
 
 gameSetup();
-//console.log(treasureDeck);
 
 //update Pilot X and Y to be on top of Fools Landing
 
 const playerXAndY = () =>{
-    document.getElementById('pilot').style.left = (foolsLanding.x + 37.5 - 12.5) + 'px';
-    document.getElementById('pilot').style.top = (foolsLanding.y + 37.5 - 12.5) + 'px';
-    pilot.x = foolsLanding.x + 37.5 - 12.5;
-    pilot.y = foolsLanding.y + 37.5 - 12.5;
+    document.getElementById('pilot').style.left = (foolsLanding.x + offset) + 'px';
+    document.getElementById('pilot').style.top = (foolsLanding.y + offset) + 'px';
+    pilot.x = foolsLanding.x + offset;
+    pilot.y = foolsLanding.y + offset;
 }
 
 playerXAndY();
@@ -703,6 +749,7 @@ const collectTreasure = (e) =>{
     let length = pilot.hand.length;
     let trigger = e.srcElement.id;
     treasureCount++;
+    playerActions++;
     for(let i = 0; i <treasurePickupLocations.length; i++){
         if(triggerBtn === treasurePickupLocations[i].treasure){
             document.getElementById(treasurePickupLocations[i].treasure).style.visibility = 'visible';
@@ -827,13 +874,21 @@ const collectTreasuresBtn = () =>{
 }
 var checkTreasures = setInterval(collectTreasuresBtn, 100);
 
-const flyOff = () =>{
+const youWin = () =>{
+    let helicopterCount = 0;
+    
+    //figure out how many helicopter lifts the player has in hand
+    for(let i = 0; i < pilot.hand.length; i++){
+        if(pilot.hand[i].className === 'helicopterlift'){
+            helicopterCount++;
+        }
+    }
+
     //if treasure ===1 && player on fools landing && player has helicpter lift
-    //then fly off
-    //trigger win
+    if(treasureCount >= treasureGoal && (pilot.x === (foolsLanding.x + offset)) && (pilot.y === (foolsLanding.y + offset)) && helicopterCount >=1){
+        document.getElementById('gamecontainer').style.backgroundColor = 'blue';
+        document.getElementById('gamecontainer').innerText = "You Won!"
+    }
 }
 
-const lossConditions = () => {
-
-}
 
