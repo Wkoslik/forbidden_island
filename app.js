@@ -276,6 +276,23 @@ const drawFloodCards = () =>{
 //movement with board game boundaries **REFACTOR** If currentlocation +movement > upper boundary then no movement
 
 const movementHandler = (e) => {
+    //cannot move to sunk locations
+    for(let i = 0; i < sunkLocations.length; i++){
+        if((pilot.x - offset)=== sunkLocations[i].x && pilot.y-offset+movement === sunkLocations[i].y && e.key === 's'){
+            alert('You cannot move to a sunk location.');
+            return;
+        } else if((pilot.x-offset) === sunkLocations[i].x && pilot.y-offset-movement ===sunkLocations[i].y && e.key ==='w'){
+            alert('You cannot move to a sunk location.');
+            return;
+        } else if((pilot.x-offset-movement) === sunkLocations[i].x && pilot.y-offset ===sunkLocations[i].y && e.key ==='a'){
+            alert('You cannot move to a sunk location.');
+            return;
+        } else if(pilot.x-offset+movement === sunkLocations[i].x && pilot.y-offset ===sunkLocations[i].y && e.key ==='d'){
+        alert('You cannot move to a sunk location.');
+        return;
+        };
+    }
+
     if ((pilot.x === 385 && pilot.y === 130 && e.key === 'w') || //col4, row 1
     (pilot.x === 300 && pilot.y === 45 && e.key === 'w') ||
     (pilot.x === 215 && pilot.y === 45 && e.key === 'w') ||
@@ -307,19 +324,15 @@ const movementHandler = (e) => {
     } else if (e.key === 'w'){
         pilot.element.style.top = (pilot.y -= movement) + 'px';
         playerActions++;
-        console.log(pilot.x, pilot.y);
     } else if (e.key === 'a'){
         pilot.element.style.left = (pilot.x -= movement) + 'px';
         playerActions++;
-        console.log(pilot.x, pilot.y);
     } else if (e.key === 's'){
         pilot.element.style.top =  (pilot.y += movement) + 'px';
         playerActions++;
-        console.log(pilot.x, pilot.y);
     } else if (e.key ==='d'){
         pilot.element.style.left = (pilot.x += movement) + 'px';
         playerActions++;
-        console.log(pilot.x, pilot.y);
     } else{
         alert("That key won't let you move. Try W, A, S, or D.");
     }
@@ -681,7 +694,6 @@ const unflood = (e) =>{
                     }
                 }
         } else{
-            console.log('Nope');
             return;
     }
 }
@@ -905,9 +917,5 @@ const collectTreasuresBtn = () =>{
     }
     //treasure picture visible
 }
-var checkTreasures = setInterval(collectTreasuresBtn, 100);
 
-
-const noMoveToSunk = () =>{
-
-}
+setInterval(collectTreasuresBtn, 100);
