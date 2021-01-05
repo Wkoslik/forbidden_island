@@ -52,7 +52,7 @@ The game alternates between the player turn and the "island" turn.
 * ## V1
     - [X] Increase Number of treasures to collect to 2
     - [X] Add Tile and Deck Imagery (Flood deck imagery and Tile imagery are the same).
-    - [ ] Select Difficulty Level (Water Level Tracker)
+    - [X] Select Difficulty Level (Water Level Tracker)
 
 * ## V2
     - [X] Game board shuffles each time the game starts

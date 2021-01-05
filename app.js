@@ -52,7 +52,7 @@ let progressBar = document.getElementById('progressbar');
 let progressBarValue = 5;
 let offset = 25;
 let treasureCount = 0;
-let treasureGoal = 1;
+let treasureGoal = 4;
 let earthTreasureCollected = false;
 let waterTreasureCollected = false;
 let fireTreasureCollected = false;
@@ -359,8 +359,6 @@ const handOverFive = () =>{
     document.getElementById('cardlimit').style.display = 'block';
     document.getElementById('endturn').removeEventListener('click', endTurn);
 }
-
-
 
 const checkPlayerHandLimit = () =>{
     if(pilot.hand.length > 5){
@@ -729,6 +727,35 @@ const randomTiles = () =>{
         }
     }
 
+//update difficulty level
+const difficultyLvl = (e) =>{
+    let eventSrc = e.srcElement.id;
+    let lvlbtn = document.getElementsByClassName('lvlbtn');
+
+    if(eventSrc === 'novice'){
+        progressBarValue = 5;
+    } else if (eventSrc ==='normal'){
+        progressBarValue = 15;
+    }else if(eventSrc === 'elite'){
+        progressBarValue = 25;
+    } else if(eventSrc === 'legendary'){
+        progressBarValue = 35;
+    }
+    progressBar.value = progressBarValue;
+
+    for(let i = 0; i < lvlbtn.length; i++){
+        lvlbtn[i].removeEventListener('click', difficultyLvl);
+    }
+}
+
+const updateDifficultyBtns = () =>{
+    let lvlbtn = document.getElementsByClassName('lvlbtn');
+    console.log(lvlbtn);
+    for(let i = 0; i < lvlbtn.length; i++){
+        lvlbtn[i].addEventListener('click', difficultyLvl);
+    }
+}    
+
 //Game Set up 
 const gameSetup = () =>{
     //randomly generate board
@@ -741,6 +768,8 @@ const gameSetup = () =>{
     shuffleDeck(treasureDeck);
     //two treasure cards to the player
     treasureDeckDraw();
+    //add btns to to waterlvl
+    updateDifficultyBtns();
     //push watersrise into treasure deck
     for(let i = 0; i < 3; i++){
         treasureDeck.push(watersRiseDeck[0]);
@@ -755,6 +784,16 @@ const gameSetup = () =>{
 gameSetup();
 
 playerXAndY();
+
+
+//add event listeners to buttons
+
+
+
+
+
+
+
 
 //player turn 
 
