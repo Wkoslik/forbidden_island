@@ -167,6 +167,10 @@ let watersrise1 = new CreateWatersRise('waters rise', 'watersrise');
 
 /* HELPER FUNCTIONS */
 
+const reload = () =>{
+    location.reload();
+    return false;
+}
 
 //loss condition
 
@@ -177,8 +181,16 @@ const youLose = () => {
         tidalPalace.sunk === true && coralPalace.sunk === true &&
         templeOfTheMoon.sunk === true && templeOfTheSun.sunk === true &&
         caveOfEmbers.sunk === true && caveOfShadows.sunk === true)){
-            document.getElementById('gamecontainer').style.backgroundColor = 'red';
-            document.getElementById('gamecontainer').innerText = "You Lost!"
+            document.getElementById('game').style.backgroundColor = 'red';
+            document.getElementById('game').innerText = "You Lost!";
+            document.getElementById('game').style.color = 'white';
+            document.getElementById('game').style.fontSize = '64px';
+            document.getElementById('game').style.fontFamily = 'Fredericka the Great';
+            document.getElementById('playeractions').style.display = 'none';
+            document.getElementById('playerhand').style.display = 'none';
+            document.getElementById('drawtreasurecards').innerText = 'Restart Game';
+            document.getElementById('drawtreasurecards').removeEventListener('click', playerDeckDraw);
+            document.getElementById('drawtreasurecards').addEventListener('click', reload);
             clearInterval(playerTurn);
             clearInterval(collectTreasuresBtn);
             clearInterval(checkPlayerHandLimit);
@@ -548,8 +560,16 @@ const youWin = () =>{
 
     //if treasure ===1 && player on fools landing && player has helicopter lift
     if(treasureCount >= treasureGoal && (pilot.x === (foolsLanding.x + offset)) && (pilot.y === (foolsLanding.y + offset)) && helicopterCount >=1){
-        document.getElementById('gamecontainer').style.backgroundColor = 'blue';
-        document.getElementById('gamecontainer').innerText = "You Won!";
+        document.getElementById('game').style.backgroundColor = 'blue';
+        document.getElementById('game').innerText = "You Won!";
+        document.getElementById('game').style.color = 'white';
+        document.getElementById('game').style.fontSize = '64px';
+        document.getElementById('game').style.fontFamily = 'Fredericka the Great';
+        document.getElementById('playeractions').style.display = 'none';
+        document.getElementById('playerhand').style.display = 'none';
+        document.getElementById('drawtreasurecards').innerText = 'Restart Game';
+        document.getElementById('drawtreasurecards').removeEventListener('click', playerDeckDraw);
+        document.getElementById('drawtreasurecards').addEventListener('click', reload);
         clearInterval(playerTurn);
         clearInterval(collectTreasuresBtn);
         clearInterval(checkPlayerHandLimit);
@@ -888,3 +908,6 @@ const collectTreasuresBtn = () =>{
 var checkTreasures = setInterval(collectTreasuresBtn, 100);
 
 
+const noMoveToSunk = () =>{
+
+}
