@@ -177,10 +177,10 @@ const reload = () =>{
 const youLose = () => {
     if(progressBarValue === 100 || 
        foolsLanding.sunk === true || 
-       (treasureCount === 0 && howlingGarden.sunk === true && whisperingGarden.sunk === true && 
-        tidalPalace.sunk === true && coralPalace.sunk === true &&
-        templeOfTheMoon.sunk === true && templeOfTheSun.sunk === true &&
-        caveOfEmbers.sunk === true && caveOfShadows.sunk === true)){
+       airTreasureCollected === false && howlingGarden.sunk === true && whisperingGarden.sunk === true ||
+        waterTreasureCollected === false && tidalPalace.sunk === true && coralPalace.sunk === true ||
+        earthTreasureCollected === false && templeOfTheMoon.sunk === true && templeOfTheSun.sunk === true ||
+        fireTreasureCollected === false && caveOfEmbers.sunk === true && caveOfShadows.sunk === true){
             document.getElementById('game').style.backgroundColor = 'red';
             document.getElementById('game').innerText = "You Lost!";
             document.getElementById('game').style.color = 'white';
@@ -750,7 +750,6 @@ const difficultyLvl = (e) =>{
 
 const updateDifficultyBtns = () =>{
     let lvlbtn = document.getElementsByClassName('lvlbtn');
-    console.log(lvlbtn);
     for(let i = 0; i < lvlbtn.length; i++){
         lvlbtn[i].addEventListener('click', difficultyLvl);
     }
@@ -771,7 +770,7 @@ const gameSetup = () =>{
     //add btns to to waterlvl
     updateDifficultyBtns();
     //push watersrise into treasure deck
-    for(let i = 0; i < 3; i++){
+   for(let i = 0; i < 3; i++){
         treasureDeck.push(watersRiseDeck[0]);
     }
     //shuffle treasuredeck(three times for good measure)
@@ -784,15 +783,6 @@ const gameSetup = () =>{
 gameSetup();
 
 playerXAndY();
-
-
-//add event listeners to buttons
-
-
-
-
-
-
 
 
 //player turn 
@@ -892,6 +882,8 @@ const collectTreasure = (e) =>{
     //add new class name
     treasureDiscardDOM.classList.add(trigger);
     document.getElementById(trigger).parentNode.removeChild(document.getElementById(trigger));
+
+    checkTreasures = setInterval(collectTreasuresBtn, 100)
 }
 
 //collect treasures btn
@@ -957,4 +949,4 @@ const collectTreasuresBtn = () =>{
     //treasure picture visible
 }
 
-setInterval(collectTreasuresBtn, 100);
+let checkTreasures = setInterval(collectTreasuresBtn, 100);
