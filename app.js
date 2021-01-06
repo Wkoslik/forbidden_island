@@ -770,19 +770,20 @@ const gameSetup = () =>{
     //add btns to to waterlvl
     updateDifficultyBtns();
     //push watersrise into treasure deck
-   for(let i = 0; i < 3; i++){
+    for(let i = 0; i < 3; i++){
         treasureDeck.push(watersRiseDeck[0]);
     }
     //shuffle treasuredeck(three times for good measure)
     for(let i = 0; i < 3; i++){
         shuffleDeck(treasureDeck);
     }
+
+    //update player x&Y so they start on their starting tile
+    setTimeout(playerXAndY, 1000);
 }
 
 
 gameSetup();
-
-playerXAndY();
 
 
 //player turn 
