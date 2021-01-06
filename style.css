@@ -1,134 +1,152 @@
-body{
+body {
     background-color: rgb(96, 205, 255);
-    background-image: url('./imgs/pngaaa.com-27423.png');
+    background-image: url("./imgs/pngaaa.com-27423.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 90%;
     margin: 0 auto;
     padding: 0;
     font-family: sans-serif;
-}
-
-#container{
+  }
+  
+  #container {
     width: 100%;
     margin: 0 auto 32px auto;
-
-}
-
-h1{
+  }
+  
+  h1 {
     text-align: center;
     padding: 16px;
     font-size: 72px;
-    font-family: 'Fredericka the Great', sans-serif;
+    font-family: "Fredericka the Great", sans-serif;
     margin-bottom: 0;
-}
-
-#gamecontainer{
+  }
+  
+  #gamecontainer {
     margin: 4px;
-}
-
-#row2{
+  }
+  
+  #row2 {
     display: flex;
     width: 100%;
-}
-
-aside{
+  }
+  
+  aside {
     width: 25%;
     display: inline;
-}
-
-#board{
+  }
+  
+  #board {
     width: 1000px;
-}
-
-#firstRow{
+  }
+  
+  #firstRow {
     display: flex;
     justify-content: center;
-}
-
-#secondRow{
+  }
+  
+  #secondRow {
     height: 30%;
     margin-top: 16px;
-}
-#decks{
+  }
+  #decks {
     width: 250px;
-}
-
-#treasuredraw, #flooddraw{
+  }
+  
+  #treasuredraw,
+  #flooddraw {
     height: 124.6px;
     width: 173px;
     border: 1px dotted black;
     margin: 4px;
     text-align: center;
     font-size: 32px;
-    font-family: 'Fredericka the Great', sans-serif;
+    font-family: "Fredericka the Great", sans-serif;
     color: white;
     line-height: 124.6px;
-
-}
-
-#treasurediscard, #flooddiscard{
+  }
+  
+  #treasurediscard,
+  #flooddiscard {
     width: 124.6px;
     height: 173px;
     border: 1px dotted black;
     margin: -25px auto auto 27px;
     transform: rotate(90deg);
-}
-
-.title{
-    font-family: 'Fredericka the Great', sans-serif;
-}
-
-#treasuredraw{
-    background-image: linear-gradient(45deg, #b80201 25%, #d64800 25%, #d64800 50%, #b80201 50%, #b80201 75%, #d64800 75%, #d64800 100%);
+  }
+  
+  .title {
+    font-family: "Fredericka the Great", sans-serif;
+  }
+  
+  #treasuredraw {
+    background-image: linear-gradient(
+      45deg,
+      #b80201 25%,
+      #d64800 25%,
+      #d64800 50%,
+      #b80201 50%,
+      #b80201 75%,
+      #d64800 75%,
+      #d64800 100%
+    );
     background-size: 28.28px 28.28px;
-}
-
-#flooddraw{
-    background-image: linear-gradient(45deg, #3b55b3 25%, #669db3 25%, #669db3 50%, #3b55b3 50%, #3b55b3 75%, #669db3 75%, #669db3 100%);
+  }
+  
+  #flooddraw {
+    background-image: linear-gradient(
+      45deg,
+      #3b55b3 25%,
+      #669db3 25%,
+      #669db3 50%,
+      #3b55b3 50%,
+      #3b55b3 75%,
+      #669db3 75%,
+      #669db3 100%
+    );
     background-size: 28.28px 28.28px;
-}
-
-#game{
+  }
+  
+  #game {
     width: 540px;
     height: 540px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#playerHand{
+  }
+  
+  #playerHand {
     width: 100%;
     height: 100%;
     border: 1px solid hotpink;
-}
-
-#waterlevelcontainer{
+  }
+  
+  #waterlevelcontainer {
     width: 90%;
-}
-
-.lvlbtn{
+  }
+  
+  .lvlbtn {
     background-color: lightgray;
     margin: 4px;
     padding: 4px;
     border: 1px solid black;
     border-radius: 10px;
-}
-
-.lvlbtn:hover{
+  }
+  
+  .lvlbtn:hover {
     cursor: pointer;
     background-color: lightskyblue;
     transition: 500ms ease-in-out;
-}
-
-progress{
+  }
+  
+  progress {
     width: 100%;
     height: 50px;
     margin: 0 auto;
-}
-
-.grid-container {
+  }
+  
+  .grid-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -144,79 +162,108 @@ progress{
       "choose choose novice2 normal2 elite3 legendary3 a3 a4 a5 b4 b5 dead"
       "choose choose progressbar progressbar progressbar progressbar progressbar progressbar progressbar progressbar progressbar progressbar";
   }
-
-.title{
+  
+  .title {
     grid-area: title;
     text-align: center;
     line-height: 50px;
     font-size: 44px;
-}
-.Novice2 { 
-    grid-area: Novice2; 
+  }
+  .Novice2 {
+    grid-area: Novice2;
     text-align: center;
-}
-
-.Normal2 { 
-    grid-area: Normal2; 
+  }
+  
+  .Normal2 {
+    grid-area: Normal2;
     text-align: center;
-}
-
-.Elite3 { 
-    grid-area: Elite3; 
+  }
+  
+  .Elite3 {
+    grid-area: Elite3;
     text-align: center;
-}
-
-.Legendary3 { grid-area: Legendary3; text-align: center;}
-
-.a3 { grid-area: a3; text-align: center;}
-
-.a4 { grid-area: a4; text-align: center;}
-
-.a5 { grid-area: a5; text-align: center;}
-
-.b4 { grid-area: b4; text-align: center;}
-
-.b5 { grid-area: b5; text-align: center;}
-
-.dead { grid-area: dead; }
-
-.progressbar { 
-    grid-area: progressbar; 
+  }
+  
+  .Legendary3 {
+    grid-area: Legendary3;
+    text-align: center;
+  }
+  
+  .a3 {
+    grid-area: a3;
+    text-align: center;
+  }
+  
+  .a4 {
+    grid-area: a4;
+    text-align: center;
+  }
+  
+  .a5 {
+    grid-area: a5;
+    text-align: center;
+  }
+  
+  .b4 {
+    grid-area: b4;
+    text-align: center;
+  }
+  
+  .b5 {
+    grid-area: b5;
+    text-align: center;
+  }
+  
+  .dead {
+    grid-area: dead;
+  }
+  
+  .progressbar {
+    grid-area: progressbar;
     display: flex;
     justify-content: center;
-}
-
-#skull{
+  }
+  
+  #skull {
     display: block;
     width: 50%;
     margin: 0 auto;
-}
-
-.choose { 
-    grid-area: choose; 
+  }
+  
+  .choose {
+    grid-area: choose;
     text-align: center;
     align-items: flex-start;
-}
-
-.novice { grid-area: novice; }
-
-.normal { grid-area: normal; }
-
-.elite { grid-area: elite; }
-
-.legendary { grid-area: legendary; }
-
-.hold { grid-area: hold; }
-
-.tile{
-    
+  }
+  
+  .novice {
+    grid-area: novice;
+  }
+  
+  .normal {
+    grid-area: normal;
+  }
+  
+  .elite {
+    grid-area: elite;
+  }
+  
+  .legendary {
+    grid-area: legendary;
+  }
+  
+  .hold {
+    grid-area: hold;
+  }
+  
+  .tile {
     margin: 10px 5px 10px 5px;
     width: 75px;
     height: 75px;
     display: block;
-}
-
-#pilot{
+  }
+  
+  #pilot {
     position: absolute;
     width: 25px;
     height: 25px;
@@ -225,158 +272,159 @@ progress{
     border-radius: 100%;
     background-color: blue;
     z-index: 10;
-}
-
-#howlinggarden{
-    background-image: url('./imgs/tiles/compressed_tiles/howlingtile.png');
+  }
+  
+  #howlinggarden {
+    background-image: url("./imgs/tiles/compressed_tiles/howlingtile.png");
     background-size: contain;
-}
-
-#lostlagoon{
-    background-image: url('./imgs/tiles/compressed_tiles/losttile.png');
+  }
+  
+  #lostlagoon {
+    background-image: url("./imgs/tiles/compressed_tiles/losttile.png");
     background-size: contain;
-}
-
-#caveofshadows{
-    background-image: url('./imgs/tiles/compressed_tiles/shadowstile.png');
+  }
+  
+  #caveofshadows {
+    background-image: url("./imgs/tiles/compressed_tiles/shadowstile.png");
     background-size: contain;
-}
-
-#phantomrock{
-    background-image: url('./imgs/tiles/compressed_tiles/phantomtile.png');
+  }
+  
+  #phantomrock {
+    background-image: url("./imgs/tiles/compressed_tiles/phantomtile.png");
     background-size: contain;
-}
-
-#silvergate{
-    background-image: url('./imgs/tiles/compressed_tiles/silvertile.png');
+  }
+  
+  #silvergate {
+    background-image: url("./imgs/tiles/compressed_tiles/silvertile.png");
     background-size: contain;
-}
-
-#templeofthesun{
-    background-image: url('./imgs/tiles/compressed_tiles/suntile.png');
+  }
+  
+  #templeofthesun {
+    background-image: url("./imgs/tiles/compressed_tiles/suntile.png");
     background-size: contain;
-}
-
-#watchtower{
-    background-image: url('./imgs/tiles/compressed_tiles/watchtowertile.png');
+  }
+  
+  #watchtower {
+    background-image: url("./imgs/tiles/compressed_tiles/watchtowertile.png");
     background-size: contain;
-}
-
-#irongate{
-    background-image: url('./imgs/tiles/compressed_tiles/irontile.png');
+  }
+  
+  #irongate {
+    background-image: url("./imgs/tiles/compressed_tiles/irontile.png");
     background-size: contain;
-}
-
-#foolslanding{
-    background-image: url('./imgs/tiles/compressed_tiles/foolstile.png');
+  }
+  
+  #foolslanding {
+    background-image: url("./imgs/tiles/compressed_tiles/foolstile.png");
     background-size: contain;
-}
-
-#coppergate{
-    background-image: url('./imgs/tiles/compressed_tiles/coppertile.png');
+  }
+  
+  #coppergate {
+    background-image: url("./imgs/tiles/compressed_tiles/coppertile.png");
     background-size: contain;
-}
-
-#coralpalace{
-    background-image: url('./imgs/tiles/compressed_tiles/coraltile.png');
+  }
+  
+  #coralpalace {
+    background-image: url("./imgs/tiles/compressed_tiles/coraltile.png");
     background-size: contain;
-}
-
-#dunesofdeception{
-    background-image: url('./imgs/tiles/compressed_tiles/dunestile.png');
+  }
+  
+  #dunesofdeception {
+    background-image: url("./imgs/tiles/compressed_tiles/dunestile.png");
     background-size: contain;
-}
-
-#goldgate{
-    background-image: url('./imgs/tiles/compressed_tiles/goldtile.png');
+  }
+  
+  #goldgate {
+    background-image: url("./imgs/tiles/compressed_tiles/goldtile.png");
     background-size: contain;
-}
-
-#bronzegate{
-    background-image: url('./imgs/tiles/compressed_tiles/bronzetile.png');
+  }
+  
+  #bronzegate {
+    background-image: url("./imgs/tiles/compressed_tiles/bronzetile.png");
     background-size: contain;
-}
-
-#crimsonforest{
-    background-image: url('./imgs/tiles/compressed_tiles/crimsontile.png');
+  }
+  
+  #crimsonforest {
+    background-image: url("./imgs/tiles/compressed_tiles/crimsontile.png");
     background-size: contain;
-}
-
-#observatory{
-    background-image: url('./imgs/tiles/compressed_tiles/observatorytile.png');
+  }
+  
+  #observatory {
+    background-image: url("./imgs/tiles/compressed_tiles/observatorytile.png");
     background-size: contain;
-}
-
-#tidalpalace{
-    background-image: url('./imgs/tiles/compressed_tiles/tildaltile.png');
+  }
+  
+  #tidalpalace {
+    background-image: url("./imgs/tiles/compressed_tiles/tildaltile.png");
     background-size: contain;
-}
-
-#whisperinggarden{
-    background-image: url('./imgs/tiles/compressed_tiles/whisperingtile.png');
+  }
+  
+  #whisperinggarden {
+    background-image: url("./imgs/tiles/compressed_tiles/whisperingtile.png");
     background-size: contain;
-}
-
-#templeofthemoon{
-    background-image: url('./imgs/tiles/compressed_tiles/moontile.png');
+  }
+  
+  #templeofthemoon {
+    background-image: url("./imgs/tiles/compressed_tiles/moontile.png");
     background-size: contain;
-}
-
-#mistymarsh{
-    background-image: url('./imgs/tiles/compressed_tiles/mistytile.png');
+  }
+  
+  #mistymarsh {
+    background-image: url("./imgs/tiles/compressed_tiles/mistytile.png");
     background-size: contain;
-}
-
-#twilighthollow{
-    background-image: url('./imgs/tiles/compressed_tiles/twilighttile.png');
+  }
+  
+  #twilighthollow {
+    background-image: url("./imgs/tiles/compressed_tiles/twilighttile.png");
     background-size: contain;
-}
-
-#caveofembers{
-    background-image: url('./imgs/tiles/compressed_tiles/emberstile.png');
+  }
+  
+  #caveofembers {
+    background-image: url("./imgs/tiles/compressed_tiles/emberstile.png");
     background-size: contain;
-}
-
-#cliffsofabandon{
-    background-image: url('./imgs/tiles/compressed_tiles/cliffstile.png');
+  }
+  
+  #cliffsofabandon {
+    background-image: url("./imgs/tiles/compressed_tiles/cliffstile.png");
     background-size: contain;
-}
-
-#breakersbridge{
-    background-image: url('./imgs/tiles/compressed_tiles/breakersbridgetile.png');
+  }
+  
+  #breakersbridge {
+    background-image: url("./imgs/tiles/compressed_tiles/breakersbridgetile.png");
     background-size: contain;
-}
-
-
-.flooded{
-    background-color: rgba(34, 167, 240, .5);
-}
-
-#playerhand{
+  }
+  
+  .flooded {
+    background-color: rgba(34, 167, 240, 0.5);
+  }
+  
+  #playerhand {
     display: flex;
-}
-
-#treasurehand{
-    display:flex;
+  }
+  
+  #treasurehand {
+    display: flex;
     margin-left: 10px;
-}
-.playerhandtreasurecards{
+  }
+  .playerhandtreasurecards {
     width: 124.6px;
     height: 173px;
     border: 1px dotted black;
     margin: 4px;
-}
-
-#treasures{
-    display:flex;
+  }
+  
+  #treasures {
+    display: flex;
     flex-wrap: wrap;
     width: 20%;
     margin-left: 16px;
     margin-right: 16px;
-}
-
-#watertreasure, #airtreasure,
-#firetreasure, #earthtreasure{
+  }
+  
+  #watertreasure,
+  #airtreasure,
+  #firetreasure,
+  #earthtreasure {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
@@ -384,211 +432,214 @@ progress{
     height: 45%;
     margin: 1px;
     visibility: hidden;
-}
-
-#watertreasure{
-    background-image: url('./imgs/treasure/chalicetreasure.png');
-}
-
-#airtreasure{
-    background-image: url('./imgs/treasure/liontreasure.png');
-}
-
-#firetreasure{
-    background-image: url('./imgs/treasure/firetreasure.png');
-}
-
-#earthtreasure{
-    background-image: url('./imgs/treasure/globetreasure.png');
-}
-
-
-.sandbag, .helicopterlift, .earth, .fire, .water, .air, .watersrise{
+  }
+  
+  #watertreasure {
+    background-image: url("./imgs/treasure/chalicetreasure.png");
+  }
+  
+  #airtreasure {
+    background-image: url("./imgs/treasure/liontreasure.png");
+  }
+  
+  #firetreasure {
+    background-image: url("./imgs/treasure/firetreasure.png");
+  }
+  
+  #earthtreasure {
+    background-image: url("./imgs/treasure/globetreasure.png");
+  }
+  
+  .sandbag,
+  .helicopterlift,
+  .earth,
+  .fire,
+  .water,
+  .air,
+  .watersrise {
     background-size: cover;
     width: 124.6px;
     height: 173px;
     border: 1px dotted black;
     margin: 4px;
-}
-.sandbag{
-    background-image: url('./imgs/treasure/sandbag.png');
-}
-
-.helicopterlift{
-    background-image: url('./imgs/treasure/helicopter_lift.png');
-
-}
-
-.earth{
-    background-image: url('./imgs/treasure/globe.png');
-
-}
-
-.water{
-    background-image: url('./imgs/treasure/chalice.png');
-
-}
-
-.fire{
-    background-image: url('./imgs/treasure/fire.png');
-
-}
-
-.air{
-    background-image: url('./imgs/treasure/lion.png');
-}
-
-.watersrise{
-    background-image: url('./imgs/treasure/waters_rise.png');
-}
-
-.howlinggarden{
-    background-image: url('./imgs/flood_deck/howling_garden.png');
+  }
+  .sandbag {
+    background-image: url("./imgs/treasure/sandbag.png");
+  }
+  
+  .helicopterlift {
+    background-image: url("./imgs/treasure/helicopter_lift.png");
+  }
+  
+  .earth {
+    background-image: url("./imgs/treasure/globe.png");
+  }
+  
+  .water {
+    background-image: url("./imgs/treasure/chalice.png");
+  }
+  
+  .fire {
+    background-image: url("./imgs/treasure/fire.png");
+  }
+  
+  .air {
+    background-image: url("./imgs/treasure/lion.png");
+  }
+  
+  .watersrise {
+    background-image: url("./imgs/treasure/waters_rise.png");
+  }
+  
+  .howlinggarden {
+    background-image: url("./imgs/flood_deck/howling_garden.png");
     background-size: contain;
-}
-
-.lostlagoon{
-    background-image: url('./imgs/flood_deck/lost_lagoon.png');
+  }
+  
+  .lostlagoon {
+    background-image: url("./imgs/flood_deck/lost_lagoon.png");
     background-size: contain;
-}
-
-.caveofshadows{
-    background-image: url('./imgs/flood_deck/cave_of_shadows.png');
+  }
+  
+  .caveofshadows {
+    background-image: url("./imgs/flood_deck/cave_of_shadows.png");
     background-size: contain;
-}
-
-.phantomrock{
-    background-image: url('./imgs/flood_deck/phantom_rock.png');
+  }
+  
+  .phantomrock {
+    background-image: url("./imgs/flood_deck/phantom_rock.png");
     background-size: contain;
-}
-
-.silvergate{
-    background-image: url('./imgs/flood_deck/silver_gate.png');
+  }
+  
+  .silvergate {
+    background-image: url("./imgs/flood_deck/silver_gate.png");
     background-size: contain;
-}
-
-.templeofthesun{
-    background-image: url('./imgs/flood_deck/temple_of_the_sun.png');
+  }
+  
+  .templeofthesun {
+    background-image: url("./imgs/flood_deck/temple_of_the_sun.png");
     background-size: contain;
-}
-
-.watchtower{
-    background-image: url('./imgs/flood_deck/watchtower.png');
+  }
+  
+  .watchtower {
+    background-image: url("./imgs/flood_deck/watchtower.png");
     background-size: contain;
-}
-
-.irongate{
-    background-image: url('./imgs/flood_deck/iron_gate.png');
+  }
+  
+  .irongate {
+    background-image: url("./imgs/flood_deck/iron_gate.png");
     background-size: contain;
-}
-
-.foolslanding{
-    background-image: url('./imgs/flood_deck/fools_landing.png');
+  }
+  
+  .foolslanding {
+    background-image: url("./imgs/flood_deck/fools_landing.png");
     background-size: contain;
-}
-
-.coppergate{
-    background-image: url('./imgs/flood_deck/copper_gate.png');
+  }
+  
+  .coppergate {
+    background-image: url("./imgs/flood_deck/copper_gate.png");
     background-size: contain;
-}
-
-.coralpalace{
-    background-image: url('./imgs/flood_deck/coral_palace.png');
+  }
+  
+  .coralpalace {
+    background-image: url("./imgs/flood_deck/coral_palace.png");
     background-size: contain;
-}
-
-.dunesofdeception{
-    background-image: url('./imgs/flood_deck/dunes_of_deception.png');
+  }
+  
+  .dunesofdeception {
+    background-image: url("./imgs/flood_deck/dunes_of_deception.png");
     background-size: contain;
-}
-
-.goldgate{
-    background-image: url('./imgs/flood_deck/gold_gate.png');
+  }
+  
+  .goldgate {
+    background-image: url("./imgs/flood_deck/gold_gate.png");
     background-size: contain;
-}
-
-.bronzegate{
-    background-image: url('./imgs/flood_deck/bronze_gate.png');
+  }
+  
+  .bronzegate {
+    background-image: url("./imgs/flood_deck/bronze_gate.png");
     background-size: contain;
-}
-
-.crimsonforest{
-    background-image: url('./imgs/flood_deck/crimson_forest.png');
+  }
+  
+  .crimsonforest {
+    background-image: url("./imgs/flood_deck/crimson_forest.png");
     background-size: contain;
-}
-
-.observatory{
-    background-image: url('./imgs/flood_deck/observatory.png');
+  }
+  
+  .observatory {
+    background-image: url("./imgs/flood_deck/observatory.png");
     background-size: contain;
-}
-
-.tidalpalace{
-    background-image: url('./imgs/flood_deck/tidal_palace.png');
+  }
+  
+  .tidalpalace {
+    background-image: url("./imgs/flood_deck/tidal_palace.png");
     background-size: contain;
-}
-
-.whisperinggarden{
-    background-image: url('./imgs/flood_deck/whispering_garden.png');
+  }
+  
+  .whisperinggarden {
+    background-image: url("./imgs/flood_deck/whispering_garden.png");
     background-size: contain;
-}
-
-.templeofthemoon{
-    background-image: url('./imgs/flood_deck/temple_of_the_moon.png');
+  }
+  
+  .templeofthemoon {
+    background-image: url("./imgs/flood_deck/temple_of_the_moon.png");
     background-size: contain;
-}
-
-.mistymarsh{
-    background-image: url('./imgs/flood_deck/misty_marsh.png');
+  }
+  
+  .mistymarsh {
+    background-image: url("./imgs/flood_deck/misty_marsh.png");
     background-size: contain;
-}
-
-.twilighthollow{
-    background-image: url('./imgs/flood_deck/twilight_hollow.png');
+  }
+  
+  .twilighthollow {
+    background-image: url("./imgs/flood_deck/twilight_hollow.png");
     background-size: contain;
-}
-
-.caveofembers{
-    background-image: url('./imgs/flood_deck/cave_of_embers.png');
+  }
+  
+  .caveofembers {
+    background-image: url("./imgs/flood_deck/cave_of_embers.png");
     background-size: contain;
-}
-
-.cliffsofabandon{
-    background-image: url('./imgs/flood_deck/cliffs_of_abandon.png');
+  }
+  
+  .cliffsofabandon {
+    background-image: url("./imgs/flood_deck/cliffs_of_abandon.png");
     background-size: contain;
-}
-
-.breakersbridge{
-    background-image: url('./imgs/flood_deck/breakers_bridge.png');
+  }
+  
+  .breakersbridge {
+    background-image: url("./imgs/flood_deck/breakers_bridge.png");
     background-size: contain;
-}
-
-#endturn, #drawtreasurecards{
+  }
+  
+  #endturn,
+  #drawtreasurecards {
     padding: 22px;
     font-weight: bold;
     margin: 0 auto;
-}
-
-#endturn{
+  }
+  
+  #endturn {
     display: none;
-}
-
-.button{
+  }
+  
+  .button {
     display: flex;
-}
-
-.discard{
+  }
+  
+  .discard {
     margin-top: 100%;
     margin-left: 4px;
-}
-
-#endturn:hover, #drawtreasurecards:hover{
+  }
+  
+  #endturn:hover,
+  #drawtreasurecards:hover {
     cursor: pointer;
     background-color: red;
     transition: 750ms ease;
-}
-
-#playeractions{
+  }
+  
+  #playeractions {
     font-size: 22px;
     line-height: 63px;
     margin: 0 auto;
-}
+  }

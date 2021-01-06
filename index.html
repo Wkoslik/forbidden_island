@@ -1,156 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forbidden Island</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Fredericka+the+Great&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-    <script src="./app.js" defer></script>
-</head>
-<body>
-    <div id=container>
-        <h1>Forbidden Island</h1>
-        <div id="gamecontainer">
-            <div id="waterlevelcontainer" class="grid-container">
-                <div class="title">Water Level</div>
-                <div class="choose">Choose your difficulty level:</div>
-                <div class="novice lvlbtn" id="novice">Novice</div>
-                <div class="normal lvlbtn" id="normal">Normal</div>
-                <div class="elite lvlbtn" id="elite">Elite</div>
-                <div class="legendary lvlbtn" id="legendary">Legendary</div>
-                <div class="hold"></div>
-                <div class="novice2">2</div>
-                <div class="normal2">2</div>
-                <div class="elite3">3</div>
-                <div class="legendary3">3</div>
-                <div class="a3">3</div>
-                <div class="a4">4</div>
-                <div class="a5">4</div>
-                <div class="b4">5</div>
-                <div class="b5">5</div>
-                <div class="dead">
-                    <img id="skull" src="./imgs/kisspng-jolly-roger-drink-sign-5b22243110f378.8453692715289641450694.png" alt="Red Skull and Crossbones">
-                </div>
-                <div class="progressbar">
-                    <progress max="100" value="5" id="progressbar"></progress>
-                </div>
-            </div>
-        </div>
 
-            <div id="row2">
-                
-                <div id="board">
-                    <div id="firstRow">
-                        <div id="decks">
-                            <div id="treasuredraw">Treasure</div>
-                            <div id="treasurediscard"></div>
-                            <div id="flooddraw">Flood</div>
-                            <div id="flooddiscard"></div>
-                        </div>
-                        <div id="game">
-                            <div id="pilot"></div>
-                            <div class="column">
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                            </div>
-                            <div class="column">
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                            </div>
-                            <div class="column">
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                            </div>
-                            <div class="column">
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                            </div>
-                            <div class="column">
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                            </div>
-                            <div class="column">
-                                
-                                <div class="tile"></div>
-                                <div class="tile"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="secondRow">
-                        <div id="playerhand">
-                            <div id="treasures">    
-                                <div id="watertreasure"></div>
-                                <div id="airtreasure"></div>
-                                <div id="firetreasure"></div>
-                                <div id="earthtreasure"></div>
-                            </div>
-                            <div id="treasurehand">
-                            </div>
-                            
-                        </div>
-                        <div class='button'>
-                            <div id ="playeractions">Player Actions: 0</div>
-                            <button id="drawtreasurecards">Draw 2 Treasure Cards <br> (This will end your action phase)</button>
-                            <button id='endturn'>End Turn</button>
-                        </div>
-                        <h3 id="cardlimit">You have too many cards in hand. Reduce the number of cards in hand to 5.</h3>
-                    </div>
-                </div>
-                <aside>
-                    <div id="actionoptions">
-                        <h3>Overview</h3>
-                        <ul>
-                            <li>Collect the treasure cards.</li>
-                            <li>Exchange FOUR treasure cards for an artifact.</li>
-                            <li>Escape the island before the island sinks.</li>
-                        </ul>
-                        <h3>Game Play</h3>
-                        <p>The game is divided into two game states: The Player turn and the Island turn.</p>
-                        <p>The Player always goes first followed by the Island.</p>
-                        <p>Player Turn:</p>
-                            <ul>
-                                <li>You have three actions. Those actions can be:</li>
-                                <ul>
-                                    <li>Moving</li>
-                                    <li>Exchanging treasure cards for an artifact.</li>
-                                    <li>Unflooding location tiles.</li>
-                                </ul>
-                                <li>After your three actions, draw two cards from the treasure deck.</li>
-                                <ul>
-                                    <li>If you pull a "Waters Rise" card, the water level increases and the flood discard pile is immediately shuffled and put on top of the Flood Draw pile.</li>
-                                </ul>
-                                <li>Collect 4 treasure cards (of the same treasure) and exchange them for the artifact. (hint: your hand limit is 5)</li>
-                                <li>Make it to Fools Landing and fly off with a "Helicopter Lift" before the island sinks.</li>
-                            </ul>
-                        <p>Island Turn</p>
-                            <ul>
-                                <li>The Island will flood the number of tiles equal to water level.</li>
-                                <li>If an already flooded tile is pulled, that tile sinks into the sea and is no longer usable by the player.</li>
-                            </ul>
-                        <p>Ways you can lose:</p>
-                            <ul>
-                                <li>Fools Landing sinks</li>
-                                <li>The artifact location sinks</li>
-                                <li>The Water Level reaches the skull and cross bones</li>
-                            </ul>
-                    </div>
-                </aside>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forbidden Island</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Fredericka+the+Great&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+
+<body>
+  <div id=container>
+    <h1>Forbidden Island</h1>
+    <div id="gamecontainer">
+      <div id="waterlevelcontainer" class="grid-container">
+        <div class="title">Water Level</div>
+        <div class="choose">Choose your difficulty level:</div>
+        <div class="novice lvlbtn" id="novice">Novice</div>
+        <div class="normal lvlbtn" id="normal">Normal</div>
+        <div class="elite lvlbtn" id="elite">Elite</div>
+        <div class="legendary lvlbtn" id="legendary">Legendary</div>
+        <div class="hold"></div>
+        <div class="novice2">2</div>
+        <div class="normal2">2</div>
+        <div class="elite3">3</div>
+        <div class="legendary3">3</div>
+        <div class="a3">3</div>
+        <div class="a4">4</div>
+        <div class="a5">4</div>
+        <div class="b4">5</div>
+        <div class="b5">5</div>
+        <div class="dead">
+          <img id="skull" src="./imgs/kisspng-jolly-roger-drink-sign-5b22243110f378.8453692715289641450694.png" alt="Red Skull and Crossbones">
         </div>
+        <div class="progressbar">
+          <progress max="100" value="5" id="progressbar"></progress>
+        </div>
+      </div>
     </div>
+
+    <div id="row2">
+
+      <div id="board">
+        <div id="firstRow">
+          <div id="decks">
+            <div id="treasuredraw">Treasure</div>
+            <div id="treasurediscard"></div>
+            <div id="flooddraw">Flood</div>
+            <div id="flooddiscard"></div>
+          </div>
+          <div id="game">
+            <div id="pilot"></div>
+            <div class="column">
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+            <div class="column">
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+            <div class="column">
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+            <div class="column">
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+            <div class="column">
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+            <div class="column">
+
+              <div class="tile"></div>
+              <div class="tile"></div>
+            </div>
+          </div>
+        </div>
+        <div id="secondRow">
+          <div id="playerhand">
+            <div id="treasures">
+              <div id="watertreasure"></div>
+              <div id="airtreasure"></div>
+              <div id="firetreasure"></div>
+              <div id="earthtreasure"></div>
+            </div>
+            <div id="treasurehand">
+            </div>
+
+          </div>
+          <div class='button'>
+            <div id="playeractions">Player Actions: 0</div>
+            <button id="drawtreasurecards">Draw 2 Treasure Cards <br> (This will end your action phase)</button>
+            <button id='endturn'>End Turn</button>
+          </div>
+          <h3 id="cardlimit">You have too many cards in hand. Reduce the number of cards in hand to 5.</h3>
+        </div>
+      </div>
+      <aside>
+        <div id="actionoptions">
+          <h3>Overview</h3>
+          <ul>
+            <li>Collect the treasure cards.</li>
+            <li>Exchange FOUR treasure cards for an artifact.</li>
+            <li>Escape the island before the island sinks.</li>
+          </ul>
+          <h3>Game Play</h3>
+          <p>The game is divided into two game states: The Player turn and the Island turn.</p>
+          <p>The Player always goes first followed by the Island.</p>
+          <p>Player Turn:</p>
+          <ul>
+            <li>You have three actions. Those actions can be:</li>
+            <ul>
+              <li>Moving</li>
+              <li>Exchanging treasure cards for an artifact.</li>
+              <li>Unflooding location tiles.</li>
+            </ul>
+            <li>After your three actions, draw two cards from the treasure deck.</li>
+            <ul>
+              <li>If you pull a "Waters Rise" card, the water level increases and the flood discard pile is immediately shuffled and put on top of the Flood Draw pile.</li>
+            </ul>
+            <li>Collect 4 treasure cards (of the same treasure) and exchange them for the artifact. (hint: your hand limit is 5)</li>
+            <li>Make it to Fools Landing and fly off with a "Helicopter Lift" before the island sinks.</li>
+          </ul>
+          <p>Island Turn</p>
+          <ul>
+            <li>The Island will flood the number of tiles equal to water level.</li>
+            <li>If an already flooded tile is pulled, that tile sinks into the sea and is no longer usable by the player.</li>
+          </ul>
+          <p>Ways you can lose:</p>
+          <ul>
+            <li>Fools Landing sinks</li>
+            <li>The artifact location sinks</li>
+            <li>The Water Level reaches the skull and cross bones</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+  </div>
 </body>
+
 </html>
